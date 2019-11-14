@@ -1,0 +1,3 @@
+scm_backend/__pycache__/*
+test_app/__pycache__/*
+test_app/migrations/*
