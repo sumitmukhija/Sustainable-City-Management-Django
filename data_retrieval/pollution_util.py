@@ -1,6 +1,27 @@
 import requests
+import numpy as np
 
 BREEZOMETER_KEY = "b7401295888443538a7ebe04719c8394"
+
+# Coordinates from: https://boundingbox.klokantech.com/
+SOUTH_MOST = 53.2447
+NORTH_MOST = 53.44193
+EAST_MOST = -6.037327
+WEST_MOST = -6.465722
+
+
+def get_offset_NS(number_of_sections):
+    return (NORTH_MOST - SOUTH_MOST) /number_of_sections
+    
+def get_offset_EW(number_of_sections):
+    return (EAST_MOST - WEST_MOST)/number_of_sections
+
+def get_city_sections(number_of_sections = 10):
+    sections = list()
+    for x in np.linspace(SOUTH_MOST, NORTH_MOST, number_of_sections):
+        for y in np.linspace(WEST_MOST, EAST_MOST, number_of_sections):
+            sections.append((x,y))
+    return sections
 
 # Fetch data from breezometer api
 def get_geo_pollution_data(lat, lng):
@@ -19,4 +40,7 @@ def get_geo_pollution_data(lat, lng):
         return None
 
     
+    
+if __name__ == "__main__":
+    get_city_sections()
     
