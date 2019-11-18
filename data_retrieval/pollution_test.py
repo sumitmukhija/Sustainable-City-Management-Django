@@ -2,11 +2,13 @@ from django.test import TestCase
 from . import pollution_util as pu
 import json
 from . import match
+from . import pollution_job as pj
 
 class PollutionTest(TestCase):
 
     def test(self):
         self.test_breeze_api()
+        self.test_job()
 
 
     def test_breeze_api(self):
@@ -35,3 +37,8 @@ class PollutionTest(TestCase):
         is_schema_uniform = match.are_keys_same_in_dictionary(dict(raw_json), dict(json_response))
         self.assertTrue(is_schema_uniform[0], "Schema mismatch")
         
+    def test_job(self):
+        job = pj.PollutionJob()
+        job.get_breezometer_pollution_data(53.2329, -6.1136)
+
+
