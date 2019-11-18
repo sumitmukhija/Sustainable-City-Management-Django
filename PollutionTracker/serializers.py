@@ -1,8 +1,8 @@
 from rest_framework_mongoengine import serializers
 
-from .models import PollutionDetails
+#from .models import PollutionDetails
 
-class PollSerializer(serializers.DocumentSerializer):
+'''class PollSerializer(serializers.DocumentSerializer):
     class Meta:
         model = PollutionDetails
-        fields = '__all__'
+        fields = '__all__' '''

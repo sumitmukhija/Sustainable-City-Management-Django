@@ -14,11 +14,12 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-from mongoengine import connect
-MONGO_DATABASE_NAME = 'djongo_test'
+'''from mongoengine import connect
+#MONGO_DATABASE_NAME = 'djongo_test'
 MONGO_HOST = 'mongodb+srv://gognar:Rajat123@cluster0-vyvyz.mongodb.net/test?retryWrites=true&w=majority'
 MONGO_PORT = 27017
-connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
+connect(host=MONGO_HOST, port=MONGO_PORT)'''
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
@@ -28,7 +29,8 @@ SECRET_KEY = 'wfvzl32^mtl8xu(fr&j_3e5ob%zdc$346--@!4xr(^1ri9nk36'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.6.39.251', 'localhost']
+#ALLOWED_HOSTS = ['10.6.39.251', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,7 +90,6 @@ DATABASES = {
         #'PASSWORD': 'Rajat123',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators

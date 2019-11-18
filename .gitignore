@@ -3,3 +3,4 @@ test_app/__pycache__/*
 test_app/migrations/*
 PollutionTracker/__pycache__/*
 PollutionTracker/migrations/*
+.idea/*

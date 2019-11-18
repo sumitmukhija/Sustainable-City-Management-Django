@@ -1,17 +1,13 @@
-from django.test import TestCase, Client
+from django.test import SimpleTestCase, Client
 from django.urls import reverse
+from . import pollution_mongo_test
 
 # Create your tests here.
-class TestPollutionTracker (TestCase):
+class TestPollutionTracker (SimpleTestCase):
 
+    def test_insert_pollution_data(self):
+        p_test = pollution_mongo_test.PollutionMongoTest()
+        p_test.test_insertion_api()
     def test_retrieve_pollution_data(self):
-        """
-        Tests if pollution data is accessible from the mongo db instance
-        """
-        data = {
-            "input_unit": "centimetre",
-            "output_unit": "metre",
-            "input_value": round(8096.894, 3)
-        }
-        response = self.client.get(self.url, data)
-        self.assertContains(response, 80.969)
+        p_test = pollution_mongo_test.PollutionMongoTest()
+        p_test.test_pollution_retrieval_api()
