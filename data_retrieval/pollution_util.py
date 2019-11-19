@@ -1,5 +1,9 @@
 import requests
 import numpy as np
+<<<<<<< HEAD
+=======
+import json
+>>>>>>> ae564d2... Updated job to store responses using Polls post API
 
 BREEZOMETER_KEY = "b7401295888443538a7ebe04719c8394"
 
@@ -16,21 +20,52 @@ def get_offset_NS(number_of_sections):
 def get_offset_EW(number_of_sections):
     return (EAST_MOST - WEST_MOST)/number_of_sections
 
+<<<<<<< HEAD
 def get_city_sections(number_of_sections = 10):
+=======
+def get_city_sections(number_of_sections = 2):
+>>>>>>> ae564d2... Updated job to store responses using Polls post API
     sections = list()
     for x in np.linspace(SOUTH_MOST, NORTH_MOST, number_of_sections):
         for y in np.linspace(WEST_MOST, EAST_MOST, number_of_sections):
             sections.append((x,y))
     return sections
 
+<<<<<<< HEAD
 # Fetch data from breezometer api
 def get_geo_pollution_data(lat, lng):
+=======
+def sanitize_data(response, lat, lng):
+    # modifies the breezometer response to be saved in the db
+    if (response is None):
+        #TODO: show error
+        print("Response is None for :: " + str((lat,lng)))
+        return None
+    else:
+        data = {
+            "lat": lat,
+            "long":lng,
+            "index_irl_epa": response['data']['indexes']['irl_epa'],
+            "pollutants": response['data']['pollutants']
+        }
+        return data
+
+
+# Fetch data from breezometer api
+def get_geo_pollution_data(lat, lng):
+    # features = "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations,pollutants_aqi_information"
+    features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
+>>>>>>> ae564d2... Updated job to store responses using Polls post API
     if lat is None or lng is None:
         # TODO: Show error with Error handler
         print("Latitude or longitude empty!")
         return None
     url = 'http://api.breezometer.com/air-quality/v2/current-conditions?key=' + BREEZOMETER_KEY + \
+<<<<<<< HEAD
         '&metadata=true&features=breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations,pollutants_aqi_information&lat=' + str(lat) + '&lon=' + str(lng)
+=======
+        '&metadata=true&features=' + features + '&lat=' + str(lat) + '&lon=' + str(lng)
+>>>>>>> ae564d2... Updated job to store responses using Polls post API
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -42,5 +77,9 @@ def get_geo_pollution_data(lat, lng):
     
     
 if __name__ == "__main__":
+<<<<<<< HEAD
     get_city_sections()
+=======
+    print(sanitize_data(get_geo_pollution_data(53.2329, -6.1136), 53.2329, -6.1136))
+>>>>>>> ae564d2... Updated job to store responses using Polls post API
     
