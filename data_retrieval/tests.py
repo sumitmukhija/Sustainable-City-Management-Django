@@ -1,5 +1,5 @@
 from django.test import TestCase
-from . import pollution_test
+from .pollution import pollution_test
 
 
 class SCMRetrievalTests(TestCase):
