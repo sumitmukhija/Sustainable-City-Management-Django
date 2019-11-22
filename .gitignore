@@ -1,0 +1,5 @@
+scm_backend/__pycache__/*
+test_app/__pycache__/*
+**/*_pycache*
+.vscode/*
+*/properties.py
