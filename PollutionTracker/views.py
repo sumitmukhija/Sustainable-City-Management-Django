@@ -19,18 +19,20 @@ class PollDetails(APIView):
     def post(self, request, format=None):
         data = request.data
         print(data)
-        data = data['smt']
+        data = data['data']
         print(data)
         data = json.loads(data)
         #serializer = PollSerializer(data=data)
         try:
-            PollutionDataInteractions().insert_poll_data(data)
+            x = PollutionDataInteractions().insert_poll_data(data)
         except Exception as e:
             print(str(e))
-            return Response('Error', status=status.HTTP_400_BAD_REQUEST)
-        return Response('Inserted', status=status.HTTP_201_CREATED)
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
 
-    def get(self, request):
+    '''def get(self, request):
         response = PollutionDataInteractions().get_all_objects()
+        return Response(response, status=status.HTTP_200_OK)'''
+    def get(self, request):
+        response = PollutionDataInteractions().get_latest_by_lat_long()
         return Response(response, status=status.HTTP_200_OK)
-
