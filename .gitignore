@@ -1,6 +1,6 @@
 scm_backend/__pycache__/*
 test_app/__pycache__/*
-**/*_pycache*
+**/*__pycache*
 .vscode/*
 */properties.py
 test_app/migrations/*

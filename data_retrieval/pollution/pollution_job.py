@@ -1,5 +1,5 @@
 import data_retrieval.cron_job as cj
-import data_retrieval.pollution.pollution_util
+from data_retrieval.pollution import pollution_util
 import datetime
 import requests
 import json
@@ -22,6 +22,6 @@ class PollutionJob(cj.CronJob):
                 response, lat, lng)
             response["timestamp"] = str(timestamp)
             print("\n"+json.dumps(response))
-            url = "http://10.6.39.251:8000/polls/"
+            url = "http://127.0.0.1:8000/polls/"
             response = requests.post(url, json={"data": json.dumps(response)})
-            # print(response.status_code)
+            print(response.status_code)

@@ -65,7 +65,7 @@ class PollutionUtil():
             return None
     
     
-# if __name__ == "__main__":
-#     get_city_sections()
-#     print(sanitize_data(get_geo_pollution_data(53.2329, -6.1136), 53.2329, -6.1136))
+if __name__ == "__main__":
+    PollutionUtil.get_city_sections()
+    print(PollutionUtil.sanitize_data(PollutionUtil.get_geo_pollution_data(53.2329, -6.1136), 53.2329, -6.1136))
     

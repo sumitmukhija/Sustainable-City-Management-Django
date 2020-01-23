@@ -1,6 +1,6 @@
 import kronos
 import random
-from . import pollution_job
+from data_retrieval.pollution import pollution_job
 
 @kronos.register('* * * * *')
 def execute_pollution_job():
