@@ -20,6 +20,10 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< Updated upstream:scm_backend/urls.py
     path('', include('data_retrieval.urls')),
+=======
+    path('', include('DataRetrieval.urls')),
+>>>>>>> Stashed changes:SCMBackend/urls.py
     url(r'^polls/', include('PollutionTracker.urls'))
 ]

@@ -1,9 +1,8 @@
-scm_backend/__pycache__/*
-test_app/__pycache__/*
+SCMBackend/__pycache__/*
 **/*__pycache*
 .vscode/*
 */properties.py
-test_app/migrations/*
 PollutionTracker/__pycache__/*
 PollutionTracker/migrations/*
 .idea/*
+**/.env

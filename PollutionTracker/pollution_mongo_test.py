@@ -18,14 +18,3 @@ class PollutionMongoTest(SimpleTestCase):
         API_ENDPOINT = 'http://localhost:8000/polls/'
         response = requests.get(url=API_ENDPOINT)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    '''def test_insertion_function(self):
-        data = open('D:\GitRepos\ASE-City_Management\Sustainable-City-Management-Django\PollutionTracker/test_data.json', 'r')
-        request_json = data.read()
-        request_json = json.loads(request_json)
-        PollutionDataInteractions.insert_poll_data(self,request_json)
-    def test_retrieval_function(self):
-        results = PollutionDataInteractions().get_latest_by_lat_long()
-        print(results)'''
-    '''def test_retrieval_by_lat_long_function(self):
-        results = PollutionDataInteractions().get_latest_by_lat_long()
-        print(results)'''
