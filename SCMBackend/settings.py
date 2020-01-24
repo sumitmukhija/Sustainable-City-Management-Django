@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'data_retrieval.apps.DataRetrievalConfig',
+    'DataRetrieval.apps.DataRetrievalConfig',
     'kronos',
     'rest_framework',
 	'PollutionTracker'
@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'scm_backend.urls'
+ROOT_URLCONF = 'SCMBackend.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'scm_backend.wsgi.application'
+WSGI_APPLICATION = 'SCMBackend.wsgi.application'
 
 
 # Database
