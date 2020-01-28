@@ -8,6 +8,7 @@ from rest_framework.response import Response
 #from flask import Response
 #from flask.wrappers import Response
 from .pollution_data_interactions import PollutionDataInteractions
+from .bike_data_interactions import BikeDataInteractions
 import json
 
 '''def pollution_detail(request, pk):
@@ -35,4 +36,23 @@ class PollDetails(APIView):
         return Response(response, status=status.HTTP_200_OK)'''
     def get(self, request):
         response = PollutionDataInteractions().get_latest_by_lat_long()
+        return Response(response, status=status.HTTP_200_OK)
+
+class DublinBikeDetails(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        print(data)
+        data = data['data']
+        print(data)
+        data = json.loads(data)
+        #serializer = PollSerializer(data=data)
+        try:
+            x = BikeDataInteractions().insert_bike_data(data)
+        except Exception as e:
+            print(str(e))
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = BikeDataInteractions().get_latest_by_lat_long()
         return Response(response, status=status.HTTP_200_OK)

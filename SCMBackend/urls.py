@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from PollutionTracker import views
+from DataInteractions import views
 from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('test_app.urls')),
-    url(r'^polls/', include('PollutionTracker.urls'))
+    url(r'^data/', include('DataInteractions.urls'))
 ]
