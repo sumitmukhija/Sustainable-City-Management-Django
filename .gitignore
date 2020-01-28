@@ -1,0 +1,7 @@
+SCMBackend/__pycache__/*
+**/*__pycache*
+.vscode/*
+*/properties.py
+**/migrations/*
+**/.env
+.idea/*
