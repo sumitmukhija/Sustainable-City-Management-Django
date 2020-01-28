@@ -3,11 +3,14 @@ import requests
 from .pollution_data_interactions import PollutionDataInteractions
 from rest_framework.response import Response
 from rest_framework import status
+from dotenv import load_dotenv
 import json
+import os
 import ast
 class PollutionMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        API_ENDPOINT = 'http://localhost:8000/data/polls'
+        load_dotenv();
+        API_ENDPOINT = os.getenv('BASE_MONGO_POLLUTION_URL')
         data = open('./test_data.json', 'r')
         request_json = data.read()
         print(request_json)
@@ -15,7 +18,8 @@ class PollutionMongoTest(SimpleTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_retrieval_by_lat_long_function(self):
-        API_ENDPOINT = 'http://localhost:8000/data/polls/'
+        load_dotenv()
+        API_ENDPOINT = os.getenv('BASE_MONGO_POLLUTION_URL')
         response = requests.get(url=API_ENDPOINT)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     '''def test_insertion_function(self):

@@ -1,9 +1,13 @@
 from django.test import SimpleTestCase
 import requests
+import os
 from rest_framework import status
+from dotenv import load_dotenv
 class BikeMongoTest(SimpleTestCase):
+
     def test_insertion_api(self):
-        API_ENDPOINT = 'http://localhost:8000/data/bike'
+        load_dotenv()
+        API_ENDPOINT = os.getenv('BASE_MONGO_BIKE_URL')
         data = open('./test_data_bike.json', 'r')
         request_json = data.read()
         print(request_json)
@@ -11,6 +15,7 @@ class BikeMongoTest(SimpleTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_retrieval_by_lat_long_function(self):
-        API_ENDPOINT = 'http://localhost:8000/data/bike/'
+        load_dotenv()
+        API_ENDPOINT = os.getenv('BASE_MONGO_BIKE_URL')
         response = requests.get(url=API_ENDPOINT)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
