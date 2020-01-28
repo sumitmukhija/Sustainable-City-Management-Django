@@ -19,6 +19,6 @@ class PollutionJob(cronJob.CronJob):
                 continue
             response = pollution_util.PollutionUtil.sanitize_data(response, section[0], section[1])
             response["timestamp"] = str(timestamp)
-            url = os.getenv('BASE_MONGO_POLLUTION_URL')
+            url = os.getenv('LOCALHOST')+'/data/polls'
             response = requests.post(url, json={"data": json.dumps(response)})
             print(response.status_code)

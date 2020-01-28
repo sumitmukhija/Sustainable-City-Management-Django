@@ -49,7 +49,7 @@ class PollutionUtil():
     def get_geo_pollution_data(lat, lng):
         load_dotenv()
         BREEZOMETER_KEY = os.getenv('BREEZOMETER_KEY')
-        BASE_URL = os.getenv('BREEZOMETER_KEY')
+        BASE_URL = os.getenv('BREEZOMETER_BASE_URL')
         # features = "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations,pollutants_aqi_information"
         features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
         if lat is None or lng is None:

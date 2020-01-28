@@ -90,11 +90,7 @@ WSGI_APPLICATION = 'SCMBackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        #'HOST': 'mongodb+srv://gognar:<password>@cluster0-vyvyz.mongodb.net/test?retryWrites=true&w=majority',
-        #'Name':'SampleCollection',
-        #'USER': 'gognar',
-        #'PASSWORD': 'Rajat123',
+        'ENGINE': ''
     }
 }
 
