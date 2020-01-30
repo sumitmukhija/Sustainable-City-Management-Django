@@ -21,4 +21,3 @@ class PollutionJob(cronJob.CronJob):
             response["timestamp"] = str(timestamp)
             url = os.getenv('LOCALHOST')+'/data/polls'
             response = requests.post(url, json={"data": json.dumps(response)})
-            print(response.status_code)
