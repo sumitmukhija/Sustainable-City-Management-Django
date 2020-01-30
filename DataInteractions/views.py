@@ -43,4 +43,5 @@ class DublinBikeDetails(APIView):
 
     def get(self, request):
         response = BikeDataInteractions().get_latest_by_lat_long()
-        return Response(response, status=status.HTTP_200_OK)
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
