@@ -14,7 +14,6 @@ class PollutionDataInteractions():
         with app.app_context():
             pollution_details = mongo.db.BreezoMeter
             poll_all = dumps(pollution_details.find())
-            #print(poll_all)
             poll_all = ast.literal_eval(poll_all)
             return poll_all
 
@@ -33,8 +32,6 @@ class PollutionDataInteractions():
                }
             ]
             poll_all = dumps(pollution_details.aggregate(pipeline))
-            '''for i in range(len(poll_all)):
-                print(poll_all[i])'''
             poll_all = json.loads(poll_all)
             for i in range(len(poll_all)):
                 query = {}

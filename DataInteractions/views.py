@@ -8,11 +8,10 @@ from .bike_data_interactions import BikeDataInteractions
 import json
 
 class PollDetails(APIView):
+    
     def post(self, request, format=None):
         data = request.data
-        print(data)
         data = data['data']
-        print(data)
         data = json.loads(data)
         #serializer = PollSerializer(data=data)
         try:
