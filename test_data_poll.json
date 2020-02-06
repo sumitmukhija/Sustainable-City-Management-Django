@@ -1,76 +1,51 @@
 {
-   "index_irl_epa":{
-      "display_name":"AQIH (IE)",
-      "aqi":3,
-      "aqi_display":"3",
-      "color":"#358A2F",
-      "category":"Good air quality",
-      "dominant_pollutant":"pm10"
-   },
-   "pollutants":{
-      "c6h6":{
-         "display_name":"C6H6",
-         "full_name":"Benzene",
-         "concentration":{
-            "value":0.04,
-            "units":"ug/m3"
-         }
-      },
-      "co":{
-         "display_name":"CO",
-         "full_name":"Carbon monoxide",
-         "concentration":{
-            "value":0.57,
-            "units":"ppb"
-         }
-      },
-      "no2":{
-         "display_name":"NO2",
-         "full_name":"Nitrogen dioxide",
-         "concentration":{
-            "value":22.96,
-            "units":"ppb"
-         }
-      },
-      "nox":{
-         "display_name":"NOX",
-         "full_name":"Nitrogen oxides",
-         "concentration":{
-            "value":76.26,
-            "units":"ppb"
-         }
-      },
-      "o3":{
-         "display_name":"O3",
-         "full_name":"Ozone",
-         "concentration":{
-            "value":6.38,
-            "units":"ppb"
-         }
-      },
-      "pm10":{
-         "display_name":"PM10",
-         "full_name":"Inhalable particulate matter (<10µm)",
-         "concentration":{
-            "value":65.08,
-            "units":"ug/m3"
-         }
-      },
-      "pm25":{
-         "display_name":"PM2.5",
-         "full_name":"Fine particulate matter (<2.5µm)",
-         "concentration":{
-            "value":23.65,
-            "units":"ug/m3"
-         }
-      },
-      "so2":{
-         "display_name":"SO2",
-         "full_name":"Sulfur dioxide",
-         "concentration":{
-            "value":2.35,
-            "units":"ppb"
-         }
-      }
-   }
+  "_id": "5ddd0215bf81a140984bcdf5",
+  "lat": 53.2447,
+  "long": -6.465722,
+  "index_irl_epa": {
+    "display_name": "AQIH (IE)",
+    "aqi": 2,
+    "aqi_display": "2",
+    "color": "#62BB3D",
+    "category": "Good air quality",
+    "dominant_pollutant": "o3"
+  },
+  "pollutants": {
+    "co": {
+      "display_name": "CO",
+      "full_name": "Carbon monoxide",
+      "concentration": { "value": 0.29, "units": "ppb" }
+    },
+    "no2": {
+      "display_name": "NO2",
+      "full_name": "Nitrogen dioxide",
+      "concentration": { "value": 7.45, "units": "ppb" }
+    },
+    "nox": {
+      "display_name": "NOX",
+      "full_name": "Nitrogen oxides",
+      "concentration": { "value": 11.41, "units": "ppb" }
+    },
+    "o3": {
+      "display_name": "O3",
+      "full_name": "Ozone",
+      "concentration": { "value": 34.81, "units": "ppb" }
+    },
+    "pm10": {
+      "display_name": "PM10",
+      "full_name": "Inhalable particulate matter (<10µm)",
+      "concentration": { "value": 3.83, "units": "ug/m3" }
+    },
+    "pm25": {
+      "display_name": "PM2.5",
+      "full_name": "Fine particulate matter (<2.5µm)",
+      "concentration": { "value": 3.18, "units": "ug/m3" }
+    },
+    "so2": {
+      "display_name": "SO2",
+      "full_name": "Sulfur dioxide",
+      "concentration": { "value": 0.22, "units": "ppb" }
+    }
+  },
+  "timestamp": "2019-11-26 10:44:40.276350"
 }

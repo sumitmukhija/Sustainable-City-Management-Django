@@ -7,7 +7,7 @@ class TestPollutionTracker (SimpleTestCase):
 
     def test_insert_pollution_data(self):
         p_test = pollution_mongo_test.PollutionMongoTest()
-        p_test.test_insertion_api()
+        # p_test.test_insertion_api()
     
     def test_retrieve_all_function(self):
         p_test = pollution_mongo_test.PollutionMongoTest()
