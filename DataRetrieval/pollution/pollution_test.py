@@ -1,10 +1,11 @@
 from django.test import TestCase
 import DataRetrieval.pollution.pollution_util as pu
+from django.test import SimpleTestCase
 import json
 import DataRetrieval.match as match
 import DataRetrieval.pollution.pollution_job as pj
 
-class PollutionTest(TestCase):
+class PollutionTest(SimpleTestCase):
 
     def test(self):
         self.test_breeze_api()
