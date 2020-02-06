@@ -5,3 +5,4 @@ mongoengine==0.19.1
 Flask-PyMongo==2.3.0
 dnspython==1.16.0
 python-dotenv==0.10.5
+django-cors-headers==3.2.1
