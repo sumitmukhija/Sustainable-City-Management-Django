@@ -1,0 +1,20 @@
+language: python
+
+python:
+  - "3.7"
+
+services:
+  - mongodb
+
+env:
+  - DJANGO=2.2.6
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE=SCMBackend.settings
+  - export PIP_USE_MIRRORS=true
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - python manage.py test
