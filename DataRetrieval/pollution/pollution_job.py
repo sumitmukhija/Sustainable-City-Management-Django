@@ -11,6 +11,7 @@ class PollutionJob(cronJob.CronJob):
     '''Cron job for getting pollution data for the grid coordinates'''
     def run_job(self):
         load_dotenv()
+        url = os.getenv('LOCALHOST') + '/data/polls'
         timestamp = datetime.datetime.now()
         sections = pollution_util.PollutionUtil.get_city_sections()
         for section in sections:
@@ -19,5 +20,4 @@ class PollutionJob(cronJob.CronJob):
                 continue
             response = pollution_util.PollutionUtil.sanitize_data(response, section[0], section[1])
             response["timestamp"] = str(timestamp)
-            url = os.getenv('LOCALHOST')+'/data/polls'
             response = requests.post(url, json={"data": json.dumps(response)})

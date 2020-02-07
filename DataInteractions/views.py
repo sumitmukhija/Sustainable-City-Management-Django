@@ -11,6 +11,8 @@ class PollDetails(APIView):
     def post(self, request, format=None):
         data = request.data
         data = data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
         data = json.loads(data)
         #serializer = PollSerializer(data=data)
         try:
@@ -28,9 +30,9 @@ class PollDetails(APIView):
 class DublinBikeDetails(APIView):
     def post(self, request, format=None):
         data = request.data
-        print(data)
         data = data['data']
-        print(data)
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
         data = json.loads(data)
         #serializer = PollSerializer(data=data)
         try:
@@ -48,9 +50,9 @@ class DublinBikeDetails(APIView):
 class TrafficDetails(APIView):
     def post(self, request, format=None):
         data = request.data
-        print(data)
         data = data['data']
-        print(data)
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
         data = json.loads(data)
         try:
             x = TrafficDataInteractions().insert_traffic_data(data)
