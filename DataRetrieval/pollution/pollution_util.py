@@ -3,6 +3,7 @@ import numpy as np
 import json
 import os
 from dotenv import load_dotenv
+from rest_framework import status
 
 # Coordinates from: https://boundingbox.klokantech.com/
 SOUTH_MOST = 53.2447

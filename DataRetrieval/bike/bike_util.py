@@ -40,7 +40,7 @@ class BikeUtil():
             dublin_bikes_data.append(bikes_record)
         return dublin_bikes_data
 
-
-if __name__ == "__main__":
-    data = BikeUtil.get_dublin_bikes_data()
-    new_data = BikeUtil().format_dublin_bikes_data(data)
+if __name__ == '__main__':
+    data = BikeUtil().get_dublin_bikes_data()
+    data = BikeUtil().format_dublin_bikes_data(data)
+    print("Bikes data: " , data)

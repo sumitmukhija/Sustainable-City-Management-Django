@@ -1,10 +1,9 @@
-from django.shortcuts import render, get_object_or_404
 from rest_framework import status
-import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .pollution_data_interactions import PollutionDataInteractions
-from .bike_data_interactions import BikeDataInteractions
+from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
+from DataInteractions.bike.bike_data_interactions import BikeDataInteractions
+from DataInteractions.traffic.traffic_data_interactions import TrafficDataInteractions
 import json
 
 class PollDetails(APIView):
@@ -43,5 +42,25 @@ class DublinBikeDetails(APIView):
 
     def get(self, request):
         response = BikeDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+class TrafficDetails(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        print(data)
+        data = data['data']
+        print(data)
+        data = json.loads(data)
+        try:
+            x = TrafficDataInteractions().insert_traffic_data(data)
+        except Exception as e:
+            print(str(e))
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = TrafficDataInteractions().get_latest_by_lat_long()
+        #response = TrafficDataInteractions().get_all_objects()
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)

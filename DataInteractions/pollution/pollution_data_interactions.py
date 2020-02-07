@@ -3,7 +3,7 @@
 from flask import Flask, jsonify
 import pymongo
 from flask_pymongo import PyMongo
-from .db_connection import mongo, app
+from DataInteractions.db_connection import mongo, app
 from bson.json_util import dumps
 import ast
 import json

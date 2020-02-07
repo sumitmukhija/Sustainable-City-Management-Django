@@ -1,6 +1,8 @@
-from django.test import SimpleTestCase, Client
-from django.urls import reverse
-from . import pollution_mongo_test, bike_mongo_test
+from django.test import SimpleTestCase
+from DataInteractions.pollution import pollution_mongo_test
+from DataInteractions.bike import bike_mongo_test
+from DataInteractions.traffic import traffic_mongo_test
+
 
 # Create your tests here.
 class TestPollutionTracker (SimpleTestCase):
@@ -25,3 +27,16 @@ class TestBikeDataInteractions (SimpleTestCase):
     def test_insert_bike_data(self):
         p_test = bike_mongo_test.BikeMongoTest()
         p_test.test_insertion_api()
+
+class TestTrafficDataInteractions(SimpleTestCase):
+    def test_retrieval_by_lat_long(self):
+        p_test = traffic_mongo_test.TrafficMongoTest()
+        p_test.test_retrieval_by_lat_long_function()
+
+    def test_insert_traffic_data(self):
+        p_test = traffic_mongo_test.TrafficMongoTest()
+        p_test.test_insertion_api()
+
+    def test_retrieve_all_function(self):
+        p_test = traffic_mongo_test.TrafficMongoTest()
+        p_test.test_retrieval_function()

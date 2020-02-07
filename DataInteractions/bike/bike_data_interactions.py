@@ -1,18 +1,10 @@
 import pymongo
-from .db_connection import mongo, app
+from DataInteractions.db_connection import mongo, app
 from bson.json_util import dumps
 import ast
 import json
 
 class BikeDataInteractions():
-
-    def get_all_objects(self):
-        with app.app_context():
-            bike_details = mongo.db.BikeData
-            bike_all = dumps(bike_details.find())
-            print(bike_all)
-            bike_all = ast.literal_eval(bike_all)
-            return bike_all
 
     def get_latest_by_lat_long(self):
         with app.app_context():
