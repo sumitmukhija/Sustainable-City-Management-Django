@@ -3,6 +3,7 @@ import numpy as np
 import json
 import os
 from dotenv import load_dotenv
+from SCMBackend.env import Environ
 
 # Coordinates from: https://boundingbox.klokantech.com/
 SOUTH_MOST = 53.2447
@@ -47,9 +48,8 @@ class PollutionUtil():
     # Fetch data from breezometer api
     @staticmethod
     def get_geo_pollution_data(lat, lng):
-        load_dotenv()
-        BREEZOMETER_KEY = os.getenv('BREEZOMETER_KEY')
-        BASE_URL = os.getenv('BREEZOMETER_BASE_URL')
+        BREEZOMETER_KEY = Environ().get_breezometer_api_key()
+        BASE_URL = Environ().get_localhost()
         # features = "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations,pollutants_aqi_information"
         features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
         if lat is None or lng is None:
