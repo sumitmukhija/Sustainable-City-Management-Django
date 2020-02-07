@@ -9,7 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'City_Management'
-app.config['MONGO_URI'] = os.getenv('MONGO_HOST')
+app.config['MONGO_URI'] = 'mongodb+srv://gognar:Rajat123@cluster0-vyvyz.mongodb.net/City_Management?retryWrites=true&w=majority'
+# os.getenv('MONGO_HOST')
 mongo = PyMongo(app)
 
 class JSONEncoder(json.JSONEncoder):

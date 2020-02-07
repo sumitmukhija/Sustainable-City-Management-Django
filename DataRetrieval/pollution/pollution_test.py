@@ -1,4 +1,3 @@
-from django.test import TestCase
 import DataRetrieval.pollution.pollution_util as pu
 from django.test import SimpleTestCase
 import json

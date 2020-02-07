@@ -56,7 +56,7 @@ class PollutionUtil():
             # TODO: Show error with Error handler
             print("Latitude or longitude empty!")
             return None
-        url = BASE_URL + BREEZOMETER_KEY + '&metadata=true&features=' + features + '&lat=' + str(lat) + '&lon=' + str(lng)
+        url = str(BASE_URL) + str(BREEZOMETER_KEY) + '&metadata=true&features=' + features + '&lat=' + str(lat) + '&lon=' + str(lng)
         response = requests.get(url)
         if response.status_code == 200:
             return response.json()

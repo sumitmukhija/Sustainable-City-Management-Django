@@ -24,4 +24,4 @@ class TestBikeDataInteractions (SimpleTestCase):
 
     def test_insert_bike_data(self):
         p_test = bike_mongo_test.BikeMongoTest()
-        p_test.test_insertion_api()
+        # p_test.test_insertion_api()
