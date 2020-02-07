@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from .pollution_data_interactions import PollutionDataInteractions
 from .bike_data_interactions import BikeDataInteractions
 import json
+from mongo_auth.permissions import AuthenticatedOnly
 
 '''def pollution_detail(request, pk):
     #PollutionDetails.objects.create(index=1, timestamp=1573668514154, indexValue=12.2345)
@@ -17,6 +18,9 @@ import json
     return render(request, 'product_detail.html', {'PollutionDetails':pollutiondetail})'''
 
 class PollDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly]
+
     def post(self, request, format=None):
         data = request.data
         print(data)
@@ -39,6 +43,9 @@ class PollDetails(APIView):
         return Response(response, status=status.HTTP_200_OK)
 
 class DublinBikeDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly]
+
     def post(self, request, format=None):
         data = request.data
         print(data)

@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'kronos',
     'rest_framework',
 	'DataInteractions',
-    'corsheaders'
+    'corsheaders',
+    'mongo_auth'
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MANGO_JWT_SETTINGS = {
+    "db_host": "cluster0-vyvyz.mongodb.net", # Use srv host if connecting with MongoDB Atlas Cluster
+    "db_name": "City_Management",
+    "db_user": "gognar",
+    "db_pass": "Rajat123"
+}
