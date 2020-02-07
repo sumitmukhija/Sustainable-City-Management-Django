@@ -1,6 +1,7 @@
 import os
 import requests
 import numpy as np
+import pandas as pd
 from rest_framework import status
 from dotenv import load_dotenv
 
@@ -16,7 +17,12 @@ EAST_MOST = -6.037327
 WEST_MOST = -6.465722
 
 class TrafficUtil():
-    
+
+    @staticmethod
+    def get_signal_coordinates():
+        signals = pd.read_excel("./DublinSignalData.xlsx", index_col=0)
+        return signals
+
     @staticmethod
     def getAPIKey():
         return TOMTOM_API_KEY

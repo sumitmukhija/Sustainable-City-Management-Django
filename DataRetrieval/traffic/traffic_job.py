@@ -14,10 +14,11 @@ class TrafficJob(cron_job.CronJob):
         responses = []
         timestamp = datetime.datetime.now()
         sections = traffic_util.TrafficUtil().get_city_sections()
-        for section in sections:
-            response = traffic_util.TrafficUtil.get_traffic_data(section[0], section[1])
+        signals = traffic_util.TrafficUtil().get_signal_coordinates()
+        for s in range(signals.shape[0]):
+            response = traffic_util.TrafficUtil.get_traffic_data(signals.iloc[s,0], signals.iloc[s,1])
             if (response is None):
                 continue
-            response = traffic_util.TrafficUtil.sanitize_data(response, section[0], section[1])
+            response = traffic_util.TrafficUtil.sanitize_data(response, signals.iloc[s,0], signals.iloc[s,1])
             response = requests.post(url, json={"data": json.dumps(response)})
         
