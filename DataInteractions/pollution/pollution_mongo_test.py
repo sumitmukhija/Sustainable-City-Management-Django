@@ -10,7 +10,7 @@ class PollutionMongoTest(SimpleTestCase):
     def test_insertion_api(self):
         load_dotenv();
         API_ENDPOINT = os.getenv('BASE_MONGO_POLLUTION_URL')
-        data = open('./test_data.json', 'r')
+        data = open('./test_data_poll.json', 'r')
         request_json = data.read()
         print(request_json)
         response = requests.post(url=API_ENDPOINT, data={"data": request_json})

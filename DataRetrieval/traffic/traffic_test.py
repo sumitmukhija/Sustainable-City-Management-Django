@@ -25,5 +25,5 @@ class TrafficTest(SimpleTestCase):
         self.assertEqual(apiKey, actualAPIKey)
 
     def test_get_api_data(self):
-        json_response = TrafficUtil().get_traffic_data()
+        json_response = TrafficUtil().get_traffic_data(53.2329, -6.1136)
         self.assertIsNotNone(json_response)

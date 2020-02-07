@@ -19,7 +19,7 @@ class TrafficUtil():
     
     @staticmethod
     def getAPIKey():
-        return os.getenv('TOMTOM_API_KEY')
+        return TOMTOM_API_KEY
 
     @staticmethod
     def get_traffic_data(lat, lng):

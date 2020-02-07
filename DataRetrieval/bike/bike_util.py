@@ -12,7 +12,7 @@ class BikeUtil():
     
     @staticmethod
     def getAPIKey():
-        return os.getenv('DUBLIN_BIKES_KEY')
+        return DUBLIN_BIKES_KEY
 
     @staticmethod
     def get_dublin_bikes_data():
