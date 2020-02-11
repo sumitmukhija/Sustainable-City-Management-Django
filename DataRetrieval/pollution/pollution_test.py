@@ -1,10 +1,11 @@
-from django.test import TestCase
+from django.test import SimpleTestCase
+from rest_framework import status
 import DataRetrieval.pollution.pollution_util as pu
 import json
 import DataRetrieval.match as match
 import DataRetrieval.pollution.pollution_job as pj
 
-class PollutionTest(TestCase):
+class PollutionTest(SimpleTestCase):
 
     def test(self):
         self.test_breeze_api()
@@ -12,15 +13,15 @@ class PollutionTest(TestCase):
     def test_breeze_api(self):
         # No longitude. Should return None
         json_response = pu.PollutionUtil.get_geo_pollution_data(53.2329, None)
-        self.assertIsNone(json_response, "No longitude")
+        self.assertEqual(json_response, status.HTTP_400_BAD_REQUEST)
 
         # No latitude and longitude. Should return None
         json_response = pu.PollutionUtil.get_geo_pollution_data(None, None)
-        self.assertIsNone(json_response, "No lat/long")
+        self.assertEqual(json_response, status.HTTP_400_BAD_REQUEST)
 
         # No lat. Should return None
         json_response = pu.PollutionUtil.get_geo_pollution_data(None, -6.1136)
-        self.assertIsNone(json_response, "No longitude")
+        self.assertEqual(json_response, status.HTTP_400_BAD_REQUEST)
         
         # Check for data keyjson_response = pu.get_geo_pollution_data(53.2329, -6.1136)
         json_response = pu.PollutionUtil.get_geo_pollution_data(
