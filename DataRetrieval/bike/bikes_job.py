@@ -10,10 +10,9 @@ class BikeJob(cron_job.CronJob):
 
     def run_job(self):
         load_dotenv()
-        responses = []
         timestamp = datetime.datetime.now()
         bikes_data = bike_util.BikeUtil.get_dublin_bikes_data()
         response = bike_util.BikeUtil.format_dublin_bikes_data(bikes_data)
         url = os.getenv('LOCALHOST')+"/data/bikes/"
         response = requests.post(url, json={"data": json.dumps(response)})
-        
+

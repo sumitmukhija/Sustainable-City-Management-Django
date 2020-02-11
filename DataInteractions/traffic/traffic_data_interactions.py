@@ -1,7 +1,6 @@
 import pymongo
 from DataInteractions.db_connection import mongo, app
 from bson.json_util import dumps
-import ast
 import json
 
 
@@ -35,12 +34,3 @@ class TrafficDataInteractions():
         with app.app_context():
             traffic_details = mongo.db.TrafficData
             return traffic_details.insert(data)
-
-    def get_all_objects(self):
-        with app.app_context():
-            traffic_details = mongo.db.TrafficData
-            #print(traffic_details)
-            traffic_details_all = dumps(traffic_details.find())
-            #traffic_details_all = ast.literal_eval(traffic_details_all)
-            #print(traffic_all)
-            return traffic_details_all

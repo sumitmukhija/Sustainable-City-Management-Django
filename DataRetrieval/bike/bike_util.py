@@ -39,8 +39,3 @@ class BikeUtil():
                 del bikes_record["position"]
             dublin_bikes_data.append(bikes_record)
         return dublin_bikes_data
-
-if __name__ == '__main__':
-    data = BikeUtil().get_dublin_bikes_data()
-    data = BikeUtil().format_dublin_bikes_data(data)
-    print("Bikes data: " , data)

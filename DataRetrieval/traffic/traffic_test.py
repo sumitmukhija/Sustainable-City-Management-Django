@@ -1,6 +1,4 @@
 import os
-import json
-
 from dotenv import load_dotenv
 from DataRetrieval.traffic.traffic_util import TrafficUtil
 from django.test import SimpleTestCase

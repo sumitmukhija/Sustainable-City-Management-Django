@@ -36,7 +36,6 @@ class TrafficUtil():
         URL = TOMTOM_TRAFFIC_BASE_URL + "&point=" + str(lat) + "%2C" + str(lng) + "&key=" + TOMTOM_API_KEY
         response = requests.get(URL)
         if(status.HTTP_200_OK):
-            # print("response:", response.json())
             return response.json()
         else:
             return status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -59,20 +58,17 @@ class TrafficUtil():
 
     @staticmethod
     def sanitize_data(response, lat, lng):
-        print("LAT: ", lat)
-        print("LONG: ", lng)
     # modifies the breezometer response to be saved in the db
         if (response is None):
             #TODO: show error
             print("Response is None for :: " + str((lat,lng)))
             return None
-        elif('httpStatusCode' in response and response['httpStatusCode'] == 400):
+        elif('httpStatusCode' in response and response['httpStatusCode'] == status.HTTP_400_BAD_REQUEST):
             return None
         else:
             data = {
                 "lat" : lat,
                 "long" : lng,
-# "currentSpeed": 75, "freeFlowSpeed": 75, "currentTravelTime": 41, "freeFlowTravelTime": 41, "confidence": 0.949999988079071, "roadClosure": False, "coordinates"
                 "currentSpeed" : response["flowSegmentData"]["currentSpeed"],
                 "freeFlowSpeed" : response["flowSegmentData"]["freeFlowSpeed"],
                 "currentTravelTime" : response["flowSegmentData"]["currentTravelTime"],
@@ -81,16 +77,4 @@ class TrafficUtil():
                 "roadClosure" : response["flowSegmentData"]["roadClosure"],
                 "coordinates" : response["flowSegmentData"]["coordinates"]
             }
-            print("DATA: ", data)
         return data
-
-if __name__ == "__main__":
-    sections = TrafficUtil().get_city_sections()
-    for section in sections:
-        response = TrafficUtil.get_traffic_data(section[0], section[1])
-        if (response is None):
-            continue
-        else:
-            print("SANITIZING DATA:")
-            response = TrafficUtil.sanitize_data(response, section[0], section[1])
-    
