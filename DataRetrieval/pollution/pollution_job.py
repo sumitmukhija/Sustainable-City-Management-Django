@@ -20,4 +20,3 @@ class PollutionJob(cronJob.CronJob):
             response["timestamp"] = str(timestamp)
             url = Environ().get_base_pollution_url()
             response = requests.post(url, json={"data": json.dumps(response)})
-            print(response.status_code)

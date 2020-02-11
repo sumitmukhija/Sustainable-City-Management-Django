@@ -4,6 +4,7 @@ import json
 import os
 from dotenv import load_dotenv
 from SCMBackend.env import Environ
+from rest_framework import status
 
 # Coordinates from: https://boundingbox.klokantech.com/
 SOUTH_MOST = 53.2447
@@ -31,7 +32,6 @@ class PollutionUtil():
 
     @staticmethod
     def sanitize_data(response, lat, lng):
-    # modifies the breezometer response to be saved in the db
         if (response is None):
             #TODO: show error
             print("Response is None for :: " + str((lat,lng)))
@@ -50,22 +50,12 @@ class PollutionUtil():
     def get_geo_pollution_data(lat, lng):
         BREEZOMETER_KEY = Environ().get_breezometer_api_key()
         BASE_URL = Environ().get_localhost()
-        # features = "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations,pollutants_aqi_information"
         features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
         if lat is None or lng is None:
-            # TODO: Show error with Error handler
-            print("Latitude or longitude empty!")
-            return None
-        url = BASE_URL + BREEZOMETER_KEY + '&metadata=true&features=' + features + '&lat=' + str(lat) + '&lon=' + str(lng)
+            return status.HTTP_400_BAD_REQUEST
+        url = os.getenv('BREEZOMETER_BASE_URL') + os.getenv('BREEZOMETER_KEY') + '&metadata=true&features=' + features + '&lat=' + str(lat) + '&lon=' + str(lng)
         response = requests.get(url)
         if response.status_code == 200:
             return response.json()
         else:
-            # TODO: Show error with Error handler
-            print("Handle for any other status code")
-            return None
-    
-    
-if __name__ == "__main__":
-    PollutionUtil.get_city_sections()
-    print(PollutionUtil.sanitize_data(PollutionUtil.get_geo_pollution_data(53.2329, -6.1136), 53.2329, -6.1136))
+            return status.HTTP_500_INTERNAL_SERVER_ERROR
