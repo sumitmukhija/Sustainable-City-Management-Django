@@ -134,8 +134,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MANGO_JWT_SETTINGS = {
-    "db_host": "cluster0-vyvyz.mongodb.net", # Use srv host if connecting with MongoDB Atlas Cluster
-    "db_name": "City_Management",
-    "db_user": "gognar",
-    "db_pass": "Rajat123"
+    "db_host": os.getenv('DB_HOST'), # Use srv host if connecting with MongoDB Atlas Cluster
+    "db_name": os.getenv('DB_NAME'),
+    "db_user": os.getenv('DB_USER'),
+    "db_pass": os.getenv('DB_PASS'),
+    "fields": tuple(os.getenv('MANGO_JWT_FIELDS').split(','))
+    # "fields": ('first_name','last_name','role')
 }
