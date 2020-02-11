@@ -53,7 +53,9 @@ class PollutionUtil():
         features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
         if lat is None or lng is None:
             return status.HTTP_400_BAD_REQUEST
-        url = os.getenv('BREEZOMETER_BASE_URL') + os.getenv('BREEZOMETER_KEY') + '&metadata=true&features=' + features + '&lat=' + str(lat) + '&lon=' + str(lng)
+        url = os.getenv('BREEZOMETER_BASE_URL') + os.getenv('BREEZOMETER_KEY') + \
+            '&metadata=true&features=' + features + \
+            '&lat=' + str(lat) + '&lon=' + str(lng)
         response = requests.get(url)
         if response.status_code == 200:
             return response.json()

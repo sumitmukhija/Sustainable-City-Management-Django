@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'SCMBackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': ''
+        'ENGINE': 'django.db.backends.dummy'
     }
 }
 
@@ -131,3 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if 'HEROKU' in os.environ:
+    import django_heroku
+    django_heroku.settings(locals())

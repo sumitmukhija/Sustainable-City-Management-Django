@@ -1,6 +1,6 @@
-from django.test import SimpleTestCase
 from rest_framework import status
 import DataRetrieval.pollution.pollution_util as pu
+from django.test import SimpleTestCase
 import json
 import DataRetrieval.match as match
 import DataRetrieval.pollution.pollution_job as pj

@@ -3,7 +3,6 @@ from .pollution import pollution_test
 from .bike import bike_test
 from .traffic import traffic_test
 
-
 class SCMRetrievalTests(SimpleTestCase):
     
     def test_pollution(self):
