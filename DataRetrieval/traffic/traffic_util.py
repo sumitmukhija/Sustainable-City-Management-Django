@@ -66,9 +66,20 @@ class TrafficUtil():
         elif('httpStatusCode' in response and response['httpStatusCode'] == status.HTTP_400_BAD_REQUEST):
             return None
         else:
+            curSpeed = response["flowSegmentData"]["currentSpeed"]
+            freeSpeed = response["flowSegmentData"]["freeFlowSpeed"]
+
+            if curSpeed/freeSpeed <= 0.6:
+                if curSpeed / freeSpeed <= 0.2:
+                    color = "#ff0000x"
+                else:
+                    color = "#FFBF00"
+            else:
+                color = "#00b300"
             data = {
                 "lat" : lat,
                 "long" : lng,
+                "color" : color,
                 "currentSpeed" : response["flowSegmentData"]["currentSpeed"],
                 "freeFlowSpeed" : response["flowSegmentData"]["freeFlowSpeed"],
                 "currentTravelTime" : response["flowSegmentData"]["currentTravelTime"],
