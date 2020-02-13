@@ -139,5 +139,7 @@ MANGO_JWT_SETTINGS = {
     "db_user": os.getenv('DB_USER'),
     "db_pass": os.getenv('DB_PASS'),
     "fields": tuple(os.getenv('MANGO_JWT_FIELDS').split(','))
-    # "fields": ('first_name','last_name','role')
+    # "jwt_secret": "secret", # default
+    # "jwt_life": 7, # default (in days)
+    # "secondary_username_field": "mobile" # default is None
 }
