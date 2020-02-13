@@ -2,6 +2,7 @@ from django.test import SimpleTestCase
 from DataInteractions.pollution import pollution_mongo_test
 from DataInteractions.bike import bike_mongo_test
 from DataInteractions.traffic import traffic_mongo_test
+from DataInteractions.busstops import busstop_mongo_test
 
 class TestPollutionTracker (SimpleTestCase):
 
@@ -34,3 +35,12 @@ class TestTrafficDataInteractions(SimpleTestCase):
     def test_insert_traffic_data(self):
         t_test = traffic_mongo_test.TrafficMongoTest()
         t_test.test_insertion_api()
+
+class TestBusStopDataInteractions(SimpleTestCase):
+    def test_retrieval_by_lat_long(self):
+        bs_test = busstop_mongo_test.BusStopMongoTest()
+        bs_test.test_retrieval_by_lat_long_function()
+
+    def test_insert_busstop_data(self):
+        bs_test = busstop_mongo_test.BusStopMongoTest()
+        bs_test.test_insertion_api()

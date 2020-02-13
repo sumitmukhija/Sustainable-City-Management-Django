@@ -3,8 +3,6 @@ from SCMBackend.env import Environ
 import requests
 from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
 from rest_framework import status
-import json
-import os
 
 
 class PollutionMongoTest(SimpleTestCase):
