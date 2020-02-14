@@ -3,12 +3,13 @@ from DataInteractions.pollution import pollution_mongo_test
 from DataInteractions.bike import bike_mongo_test
 from DataInteractions.traffic import traffic_mongo_test
 from DataInteractions.busstops import busstop_mongo_test
+from DataInteractions.luasstops import luasstop_mongo_test
 
 class TestPollutionTracker (SimpleTestCase):
 
     def test_insert_pollution_data(self):
         p_test = pollution_mongo_test.PollutionMongoTest()
-        # p_test.test_insertion_api()
+        p_test.test_insertion_api()
     
     def test_retrieve_all_function(self):
         p_test = pollution_mongo_test.PollutionMongoTest()
@@ -43,4 +44,13 @@ class TestBusStopDataInteractions(SimpleTestCase):
 
     def test_insert_busstop_data(self):
         bs_test = busstop_mongo_test.BusStopMongoTest()
+        bs_test.test_insertion_api()
+
+class TestLuasStopDataInteractions(SimpleTestCase):
+    def test_retrieval_by_lat_long(self):
+        ls_test = luasstop_mongo_test.LuasStopMongoTest()
+        ls_test.test_retrieval_by_lat_long_function()
+
+    def test_insert_luasstop_data(self):
+        bs_test = luasstop_mongo_test.LuasStopMongoTest()
         bs_test.test_insertion_api()

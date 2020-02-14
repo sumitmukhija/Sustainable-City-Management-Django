@@ -1,11 +1,11 @@
 import pandas as pd
 
-class BusStopUtil():
+class LuasStopUtil():
 
     @staticmethod
-    def get_bus_stop_coordinates():
+    def get_luas_stop_coordinates():
         try:
-            stops = pd.read_csv("./DublinBusStops.csv", encoding="ISO-8859-1")
+            stops = pd.read_csv("./LuasStops.csv", encoding="ISO-8859-1")
         except FileNotFoundError:
             stops = None
             return stops

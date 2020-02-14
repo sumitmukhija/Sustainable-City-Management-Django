@@ -39,6 +39,9 @@ class Environ():
     def get_base_bus_stop_url(self):
         return self.get_var_with_key('BASE_MONGO_BUS_STOP_URL')
 
+    def get_base_luas_stop_url(self):
+        return self.get_var_with_key('BASE_MONGO_LUAS_STOP_URL')
+
     def get_var_with_key(self, key):
         if os.getenv(key) is None:
             raise ValueError(str(key) + ' not found')
