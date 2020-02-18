@@ -4,15 +4,13 @@ import datetime
 import requests
 import os
 import json
-from dotenv import load_dotenv
+from SCMBackend.env import Environ
 
 class BikeJob(cron_job.CronJob):
 
     def run_job(self):
-        load_dotenv()
-        timestamp = datetime.datetime.now()
+        url = Environ().get_base_bus_stop_url()
         bikes_data = bike_util.BikeUtil.get_dublin_bikes_data()
         response = bike_util.BikeUtil.format_dublin_bikes_data(bikes_data)
-        url = os.getenv('LOCALHOST')+"/data/bikes/"
         response = requests.post(url, json={"data": json.dumps(response)})
 

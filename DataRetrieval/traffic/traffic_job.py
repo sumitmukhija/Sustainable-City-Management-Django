@@ -1,16 +1,14 @@
 from DataRetrieval import cron_job
 from DataRetrieval.traffic import traffic_util
+from SCMBackend.env import Environ
 import datetime
 import requests
-import os
 import json
-from dotenv import load_dotenv
 
 class TrafficJob(cron_job.CronJob):
 
     def run_job(self):
-        load_dotenv()
-        url = os.getenv('LOCALHOST') + "/data/traffic/"
+        url = Environ.get_base_traffic_url()
         responses = []
         timestamp = datetime.datetime.now()
         sections = traffic_util.TrafficUtil().get_city_sections()

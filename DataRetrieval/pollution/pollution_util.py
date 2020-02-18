@@ -1,8 +1,5 @@
 import requests
 import numpy as np
-import json
-import os
-from dotenv import load_dotenv
 from SCMBackend.env import Environ
 from rest_framework import status
 
@@ -49,11 +46,11 @@ class PollutionUtil():
     @staticmethod
     def get_geo_pollution_data(lat, lng):
         BREEZOMETER_KEY = Environ().get_breezometer_api_key()
-        BASE_URL = Environ().get_localhost()
+        BASE_URL = Environ().get_breezometer_base_url()
         features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
         if lat is None or lng is None:
             return status.HTTP_400_BAD_REQUEST
-        url = os.getenv('BREEZOMETER_BASE_URL') + os.getenv('BREEZOMETER_KEY') + \
+        url = BASE_URL + BREEZOMETER_KEY + \
             '&metadata=true&features=' + features + \
             '&lat=' + str(lat) + '&lon=' + str(lng)
         response = requests.get(url)

@@ -16,6 +16,15 @@ class Environ():
         return self.get_var_with_key('BREEZOMETER_BASE_URL')
 
     '''
+            Bike related environ vars
+    '''
+    def get_dublin_bikes_api_key(self):
+        return self.get_var_with_key('DUBLIN_BIKES_KEY')
+
+    def get_dublin_bikes_base_url(self):
+        return self.get_var_with_key('DUBLIN_BIKES_URL')
+
+    '''
             Mongo related environ vars
     '''
     def get_mongo_host(self):
@@ -35,6 +44,12 @@ class Environ():
 
     def get_base_traffic_url(self):
         return self.get_var_with_key('BASE_MONGO_TRAFFIC_URL')
+
+    def get_base_bus_stop_url(self):
+        return self.get_var_with_key('BASE_MONGO_BUS_STOP_URL')
+
+    def get_base_luas_stop_url(self):
+        return self.get_var_with_key('BASE_MONGO_LUAS_STOP_URL')
 
     def get_var_with_key(self, key):
         if os.getenv(key) is None:

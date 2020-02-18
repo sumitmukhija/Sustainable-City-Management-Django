@@ -3,13 +3,10 @@ from SCMBackend.env import Environ
 import requests
 from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
 from rest_framework import status
-import json
-import os
 
 
 class PollutionMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        API_ENDPOINT = Environ().get_base_pollution_url()
         data = open('./test_data_poll.json', 'r')
         request_json = data.read()
         print(request_json)
@@ -17,8 +14,7 @@ class PollutionMongoTest(SimpleTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.status_code)
 
     def test_retrieval_by_lat_long_function(self):
-        API_ENDPOINT = Environ().get_base_pollution_url()
-        response = requests.get(url=API_ENDPOINT)
+        response = requests.get(url=Environ().get_base_pollution_url())
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 

@@ -7,6 +7,8 @@ from DataInteractions.auth import *
 from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
 from DataInteractions.bike.bike_data_interactions import BikeDataInteractions
 from DataInteractions.traffic.traffic_data_interactions import TrafficDataInteractions
+from DataInteractions.busstops.busstop_data_interactions import BusStopDataInteractions
+from DataInteractions.luasstops.luasstop_data_interactions import LuasStopDataInteractions
 import json
 from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
@@ -90,5 +92,43 @@ class TrafficDetails(APIView):
 
     def get(self, request):
         response = TrafficDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+class BusStopDetails(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        data = data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = BusStopDataInteractions().insert_busstop_data(data)
+        except Exception as e:
+            print(str(e))
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = BusStopDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+class LuasStopDetails(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        data = data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = LuasStopDataInteractions().insert_luasstop_data(data)
+        except Exception as e:
+            print(str(e))
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = LuasStopDataInteractions().get_latest_by_lat_long()
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
