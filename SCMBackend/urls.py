@@ -20,5 +20,6 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('mongo_auth/', include('mongo_auth.urls')),
     url(r'^data/', include('DataInteractions.urls'))
 ]

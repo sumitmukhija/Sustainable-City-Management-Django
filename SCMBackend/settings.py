@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     'DataRetrieval.apps.DataRetrievalConfig',
     'kronos',
     'rest_framework',
-	'DataInteractions',
-    'corsheaders'
+	  'DataInteractions',
+    'corsheaders',
+    'mongo_auth'
 ]
 
 MIDDLEWARE = [
@@ -131,6 +132,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MANGO_JWT_SETTINGS = {
+    "db_host": os.getenv('DB_HOST'), # Use srv host if connecting with MongoDB Atlas Cluster
+    "db_name": os.getenv('DB_NAME'),
+    "db_user": os.getenv('DB_USER'),
+    "db_pass": os.getenv('DB_PASS'),
+    "fields": tuple(os.getenv('MANGO_JWT_FIELDS').split(','))
+    # "jwt_secret": "secret", # default
+    # "jwt_life": 7, # default (in days)
+    # "secondary_username_field": "mobile" # default is None
+}
 
 if 'HEROKU' in os.environ:
     import django_heroku
