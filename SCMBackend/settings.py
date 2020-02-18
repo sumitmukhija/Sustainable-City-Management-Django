@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'DataRetrieval.apps.DataRetrievalConfig',
     'kronos',
     'rest_framework',
-	'DataInteractions',
+	  'DataInteractions',
     'corsheaders',
     'mongo_auth'
 ]
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'SCMBackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': ''
+        'ENGINE': 'django.db.backends.dummy'
     }
 }
 
@@ -143,3 +143,7 @@ MANGO_JWT_SETTINGS = {
     # "jwt_life": 7, # default (in days)
     # "secondary_username_field": "mobile" # default is None
 }
+
+if 'HEROKU' in os.environ:
+    import django_heroku
+    django_heroku.settings(locals())
