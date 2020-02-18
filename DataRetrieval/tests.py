@@ -23,6 +23,6 @@ class SCMRetrievalTests(SimpleTestCase):
         t_test = busstop_test.BusStopTest()
         t_test.test()
 
-    def test_traffic(self):
+    def test_luasstops(self):
         t_test = luasstop_test.LuasStopTest()
         t_test.test()
