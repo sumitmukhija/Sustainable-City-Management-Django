@@ -13,6 +13,7 @@ import json
 from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
 
+
 class PollDetails(APIView):
     
     permission_classes = [AuthenticatedOnly]
@@ -48,16 +49,14 @@ class DublinBikeDetails(APIView):
         try:
             x = BikeDataInteractions().insert_bike_data(data)
         except Exception as e:
-            return Response(
-              
-              
-              x), status=status.HTTP_400_BAD_REQUEST)
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
         return Response(str(x), status=status.HTTP_201_CREATED)
 
     def get(self, request):
         response = BikeDataInteractions().get_latest_by_lat_long()
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
+
 
 class CheckAuthentication(APIView):
 
@@ -76,7 +75,11 @@ class CheckAuthentication(APIView):
             }
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
+
 class TrafficDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly]
+
     def post(self, request, format=None):
         data = request.data
         data = data['data']
@@ -95,7 +98,11 @@ class TrafficDetails(APIView):
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
 
+
 class BusStopDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly, BusAuth]
+
     def post(self, request, format=None):
         data = request.data
         data = data['data']
@@ -114,7 +121,11 @@ class BusStopDetails(APIView):
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
 
+
 class LuasStopDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly, LuasAuth]
+
     def post(self, request, format=None):
         data = request.data
         data = data['data']
