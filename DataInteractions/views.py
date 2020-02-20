@@ -1,58 +1,155 @@
-from django.shortcuts import render, get_object_or_404
-#from .models import PollutionDetails
-#from .serializers import PollSerializer
 from rest_framework import status
-import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 #from flask import Response
 #from flask.wrappers import Response
-from .pollution_data_interactions import PollutionDataInteractions
-from .bike_data_interactions import BikeDataInteractions
+from DataInteractions.auth import *
+from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
+from DataInteractions.bike.bike_data_interactions import BikeDataInteractions
+from DataInteractions.traffic.traffic_data_interactions import TrafficDataInteractions
+from DataInteractions.busstops.busstop_data_interactions import BusStopDataInteractions
+from DataInteractions.luasstops.luasstop_data_interactions import LuasStopDataInteractions
+from DataInteractions.irishrail.irishrailstop_data_interactions import IrishRailStopDataInteractions
 import json
+from mongo_auth.permissions import AuthenticatedOnly
+from mongo_auth.utils import login_status
 
-'''def pollution_detail(request, pk):
-    #PollutionDetails.objects.create(index=1, timestamp=1573668514154, indexValue=12.2345)
-    pollutiondetail = get_object_or_404(PollutionDetails, id=pk)
-    return render(request, 'product_detail.html', {'PollutionDetails':pollutiondetail})'''
 
 class PollDetails(APIView):
+    
+    permission_classes = [AuthenticatedOnly]
+    
     def post(self, request, format=None):
-        data = request.data
-        print(data)
-        data = data['data']
-        print(data)
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
         data = json.loads(data)
-        #serializer = PollSerializer(data=data)
         try:
             x = PollutionDataInteractions().insert_poll_data(data)
         except Exception as e:
-            print(str(e))
             return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
         return Response(str(x), status=status.HTTP_201_CREATED)
 
-    '''def get(self, request):
-        response = PollutionDataInteractions().get_all_objects()
-        return Response(response, status=status.HTTP_200_OK)'''
     def get(self, request):
         response = PollutionDataInteractions().get_latest_by_lat_long()
-        return Response(response, status=status.HTTP_200_OK)
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
 
 class DublinBikeDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly,BikeAuth]
+
     def post(self, request, format=None):
-        data = request.data
-        print(data)
-        data = data['data']
-        print(data)
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
         data = json.loads(data)
-        #serializer = PollSerializer(data=data)
         try:
             x = BikeDataInteractions().insert_bike_data(data)
         except Exception as e:
-            print(str(e))
             return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
         return Response(str(x), status=status.HTTP_201_CREATED)
 
     def get(self, request):
         response = BikeDataInteractions().get_latest_by_lat_long()
-        return Response(response, status=status.HTTP_200_OK)
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+
+class CheckAuthentication(APIView):
+
+    def get(self, request):
+        try:
+            flag, user_obj = login_status(request)
+            response = {
+                "authorized":flag,
+                "user":user_obj
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        except Exception as e:
+            response = {
+                "authorized": False,
+                "user": None
+            }
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TrafficDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly]
+
+    def post(self, request, format=None):
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = TrafficDataInteractions().insert_traffic_data(data)
+        except Exception as e:
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = TrafficDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+
+class BusStopDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly, BusAuth]
+
+    def post(self, request, format=None):
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = BusStopDataInteractions().insert_busstop_data(data)
+        except Exception as e:
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = BusStopDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+
+class LuasStopDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly, LuasAuth]
+
+    def post(self, request, format=None):
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = LuasStopDataInteractions().insert_luasstop_data(data)
+        except Exception as e:
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = LuasStopDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+class IrishRailStopDetails(APIView):
+    def post(self, request, format=None):
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = IrishRailStopDataInteractions().insert_irishrailstop_data(data)
+        except Exception as e:
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = IrishRailStopDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
