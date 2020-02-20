@@ -4,6 +4,7 @@ from .bike import bike_test
 from .traffic import traffic_test
 from .busstops import busstop_test
 from .luasstops import luasstop_test
+from .irishrail import irishrailstop_test
 
 class SCMRetrievalTests(SimpleTestCase):
     
@@ -26,3 +27,7 @@ class SCMRetrievalTests(SimpleTestCase):
     def test_luasstops(self):
         t_test = luasstop_test.LuasStopTest()
         t_test.test()
+
+    def test_irishrailstops(self):
+        ir_test = irishrailstop_test.IrishRailStopTest()
+        ir_test.test()

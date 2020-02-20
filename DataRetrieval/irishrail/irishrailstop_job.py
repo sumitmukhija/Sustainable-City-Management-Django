@@ -1,15 +1,15 @@
 from DataRetrieval import cron_job
-from DataRetrieval.luasstops import luasstop_util
+from DataRetrieval.irishrail import irishrailstop_util
 import requests
 import json
 from SCMBackend.env import Environ
 
 
-class LuasJob(cron_job.CronJob):
+class IrishRailJob(cron_job.CronJob):
 
     def run_job(self):
-        url = Environ().get_base_luas_stop_url()
-        stops = luasstop_util.LuasStopUtil().get_luas_stop_coordinates()
+        url = Environ().get_base_irish_rail_stop_url()
+        stops = irishrailstop_util.IrishRailUtil().get_irish_rail_stop_coordinates()
         if (stops is not None):
             for s in range(stops.shape[0]):
                 data = {
@@ -20,4 +20,4 @@ class LuasJob(cron_job.CronJob):
                 }
                 response = requests.post(url, json={"data": json.dumps(data)})
         else:
-            print("Luas Stop data unavailable")
+            pass

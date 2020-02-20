@@ -4,6 +4,7 @@ from DataInteractions.bike import bike_mongo_test
 from DataInteractions.traffic import traffic_mongo_test
 from DataInteractions.busstops import busstop_mongo_test
 from DataInteractions.luasstops import luasstop_mongo_test
+from DataInteractions.irishrail import irishrailstop_mongo_test
 
 class TestPollutionTracker (SimpleTestCase):
 
@@ -52,5 +53,14 @@ class TestLuasStopDataInteractions(SimpleTestCase):
         ls_test.test_retrieval_by_lat_long_function()
 
     def test_insert_luasstop_data(self):
-        bs_test = luasstop_mongo_test.LuasStopMongoTest()
-        bs_test.test_insertion_api()
+        ls_test = luasstop_mongo_test.LuasStopMongoTest()
+        ls_test.test_insertion_api()
+
+class TestIrishRailStopDataInteractions(SimpleTestCase):
+    def test_retrieval_by_lat_long(self):
+        irs_test = irishrailstop_mongo_test.IrishRailStopMongoTest()
+        irs_test.test_retrieval_by_lat_long_function()
+
+    def test_insert_irishrailstop_data(self):
+        irs_test = irishrailstop_mongo_test.IrishRailStopMongoTest()
+        irs_test.test_insertion_api()
