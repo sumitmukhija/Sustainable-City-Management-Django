@@ -36,15 +36,6 @@ class TestUtils:
         response = requests.post(url=url, data={"username": user, "password": pwd})
         resp = response.json()
         token = ''
-        if 'data' in resp and 'token' in resp['data']:
-            token = resp['data']['token']
-
+        if resp.get('data') and resp.get('data').get('token'):
+            token = resp.get('data').get('token')
         return token
-
-
-if __name__ == '__main__':
-    TestUtils().get_valid_auth()
-    TestUtils().get_invalid_auth()
-
-
-
