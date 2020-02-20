@@ -56,3 +56,15 @@ class Environ():
             raise ValueError(str(key) + ' not found')
         else:
             return os.getenv(key)
+
+    def get_test_creds(self, cred_type, validity):
+        if validity:
+            if cred_type.lower() == 'user':
+                return self.get_var_with_key('TEST_VALID_USER')
+            elif cred_type.lower() == 'password':
+                return self.get_var_with_key('TEST_VALID_PASS')
+        else:
+            if cred_type.lower() == 'user':
+                return self.get_var_with_key('TEST_INVALID_USER')
+            elif cred_type.lower() == 'password':
+                return self.get_var_with_key('TEST_INVALID_PASS')
