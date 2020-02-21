@@ -13,6 +13,7 @@ from DataInteractions.irishrail.irishrailstop_data_interactions import IrishRail
 import json
 from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
+from django.core.cache import cache
 
 
 class PollDetails(APIView):
@@ -153,3 +154,20 @@ class IrishRailStopDetails(APIView):
         response = IrishRailStopDataInteractions().get_latest_by_lat_long()
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
+
+class FlagDetails(APIView):
+
+    permission_classes = [AuthenticatedOnly]
+
+    def post(self, request, format=None):
+        print(request.data)
+        if request.data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        try:
+           x =  cache.set("isAlertPresent", request.data["isAlertPresent"], timeout=None)
+        except Exception as e:
+            return Response('Exception', status=status.HTTP_400_BAD_REQUEST)
+        return Response('Success', status=status.HTTP_201_CREATED)
+    
+    def get(self, request):
+        return Response({'isAlertPresent': cache.get("isAlertPresent")}, status=status.HTTP_200_OK)

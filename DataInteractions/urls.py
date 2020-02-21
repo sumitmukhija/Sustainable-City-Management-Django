@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'busstop', views.BusStopDetails.as_view()),
     url(r'luasstop', views.LuasStopDetails.as_view()),
     url(r'irishrailstop', views.IrishRailStopDetails.as_view()),
+    url(r'flags', views.FlagDetails.as_view()),
 ]
