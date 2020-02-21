@@ -37,5 +37,3 @@ class TrafficMongoTest(SimpleTestCase):
         headers = {"Authorization": valid_token}
         response = requests.get(url=Environ().get_base_traffic_url() + "/analysis", headers=headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.status_code)
-
->>>>>>> Stashed changes
