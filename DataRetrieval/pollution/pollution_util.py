@@ -37,7 +37,8 @@ class PollutionUtil():
             data = {
                 "lat": lat,
                 "long":lng,
-                "index_irl_epa": response['data']['indexes']['irl_epa'],
+                "index_irl_epa": response['data']['indexes']['baqi'],
+                # changed value from index_irl_epa to baqi. Key not changed to avoid breaking frontend
                 "pollutants": response['data']['pollutants']
             }
         return data
