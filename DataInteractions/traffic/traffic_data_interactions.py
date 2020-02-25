@@ -38,7 +38,7 @@ class TrafficDataInteractions():
     def get_latest_analysis_data_by_lat_long(self):
         with app.app_context():
             latest_db_records = []
-            traffic_details = mongo.db.TrafficData
+            traffic_details = mongo.db.TrafficAnalysisData
             pipeline = [
                {
                    u"$group": {
