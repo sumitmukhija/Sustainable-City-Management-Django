@@ -10,6 +10,7 @@ from DataInteractions.traffic.traffic_data_interactions import TrafficDataIntera
 from DataInteractions.busstops.busstop_data_interactions import BusStopDataInteractions
 from DataInteractions.luasstops.luasstop_data_interactions import LuasStopDataInteractions
 from DataInteractions.irishrail.irishrailstop_data_interactions import IrishRailStopDataInteractions
+from DataInteractions.alerts.alerts_data_interactions import AlertsDataInteractions
 import json
 from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
@@ -171,3 +172,20 @@ class FlagDetails(APIView):
     
     def get(self, request):
         return Response({'isAlertPresent': cache.get("isAlertPresent")}, status=status.HTTP_200_OK)
+
+class AlertList(APIView):
+    def post(self, request, format=None):
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = AlertsDataInteractions().insert_alerts(data)
+        except Exception as e:
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = AlertsDataInteractions().get_alerts()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
