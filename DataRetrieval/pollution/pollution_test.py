@@ -20,8 +20,7 @@ class PollutionTest(SimpleTestCase):
         self.assertEqual(json_response, status.HTTP_400_BAD_REQUEST)
 
         # No lat. Should return None
-        json_response = pu.PollutionUtil.get_geo_pollution_data(
-            None, -6.1136)
+        json_response = pu.PollutionUtil.get_geo_pollution_data(None, -6.1136)
         self.assertEqual(json_response, status.HTTP_400_BAD_REQUEST)
         
         # Check for data keyjson_response = pu.get_geo_pollution_data(53.2329, -6.1136)

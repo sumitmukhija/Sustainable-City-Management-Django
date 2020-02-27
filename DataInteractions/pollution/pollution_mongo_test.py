@@ -8,7 +8,7 @@ from DataInteractions.test_utils import TestUtils
 
 class PollutionMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        data = open('./test_data_poll.json', 'r')
+        data = open('./static/data/json/test_data_poll.json', 'r')
         request_json = data.read()
         print(request_json)
         valid_token = TestUtils().get_valid_auth()

@@ -8,7 +8,7 @@ import requests
 
 class LuasStopMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        data = open('./test_data_luasstop.json', 'r')
+        data = open('./static/data/json/test_data_luasstop.json', 'r')
         request_json = data.read()
         print(request_json)
         valid_token = TestUtils().get_valid_auth()

@@ -55,7 +55,7 @@ def main():
   print('expected output is [[0.95,1.9],[3,4]]')
 
   print('loading test data ...')
-  X=np.loadtxt('data.txt')
+  X=np.loadtxt('traffic-signals.txt')
   [m,n]=X.shape
   iters=100
   k=50

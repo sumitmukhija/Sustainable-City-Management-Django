@@ -27,6 +27,7 @@ class PollutionUtil():
         return (EAST_MOST - WEST_MOST)/number_of_sections
 
     @staticmethod
+    @DeprecationWarning
     def get_city_secions_by_grid(number_of_sections=10):
         """
         WARNING: This methods is either depricated or the caller is deprecated.
@@ -41,7 +42,7 @@ class PollutionUtil():
     @staticmethod
     def get_city_sections(filename="CityClusters.csv"):
         try:
-            contents = pd.read_csv("./"+filename, encoding="ISO-8859-1")
+            contents = pd.read_csv("./static/data/csv/"+filename, encoding="ISO-8859-1")
             if contents is None:
                 raise Exception(filename, "either empty or cannot be read.")
             sections = [tuple(x) for x in contents.values]
@@ -51,10 +52,6 @@ class PollutionUtil():
 
     @staticmethod
     def sanitize_data(response, lat, lng):
-        """
-        WARNING: The class and the associated methods are depricated.
-        Please use PollutionUtil instead. 
-        """
         if (response is None):
             #TODO: show error
             print("Response is None for :: " + str((lat,lng)))
@@ -72,10 +69,6 @@ class PollutionUtil():
     # Fetch data from breezometer api
     @staticmethod
     def get_geo_pollution_data(lat, lng):
-        """
-        WARNING: The class and the associated methods are depricated.
-        Please use PollutionUtil instead. 
-        """
         BREEZOMETER_KEY = Environ().get_breezometer_api_key()
         BASE_URL = Environ().get_breezometer_base_url()
         features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"

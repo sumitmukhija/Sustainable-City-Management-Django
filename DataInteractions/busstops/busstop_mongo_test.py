@@ -8,7 +8,7 @@ import requests
 
 class BusStopMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        data = open('./test_data_busstop.json', 'r')
+        data = open('./static/data/json/test_data_busstop.json', 'r')
         request_json = data.read()
         print(request_json)
         valid_token = TestUtils().get_valid_auth()

@@ -6,7 +6,7 @@ import requests
 
 class IrishRailStopMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        data = open('./test_data_irishrailstop.json', 'r')
+        data = open('./static/data/json/test_data_irishrailstop.json', 'r')
         request_json = data.read()
         print(request_json)
         response = requests.post(url=Environ().get_base_irish_rail_stop_url(), data={"data": request_json})

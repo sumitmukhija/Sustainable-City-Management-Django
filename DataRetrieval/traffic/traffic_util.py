@@ -2,6 +2,7 @@ import os
 import requests
 import numpy as np
 import pandas as pd
+from DataRetrieval.pollution.pollution_util import PollutionUtil
 from rest_framework import status
 from dotenv import load_dotenv
 
@@ -20,7 +21,7 @@ class TrafficUtil():
 
     @staticmethod
     def get_signal_coordinates():
-        signals = pd.read_excel("./DublinSignalData.xlsx", index_col=0)
+        signals = pd.read_excel("./static/data/xlsx/DublinSignalData.xlsx", index_col=0)
         return signals
 
     @staticmethod
@@ -50,14 +51,7 @@ class TrafficUtil():
 
     @staticmethod
     def get_city_sections(filename="CityClusters.csv"):
-        try:
-            contents = pd.read_csv("./"+filename, encoding="ISO-8859-1")
-            if contents is None:
-                raise Exception(filename, "either empty or cannot be read.")
-            sections = [tuple(x) for x in contents.values]
-            return sections
-        except FileNotFoundError:
-            print(filename, "not found")
+        return PollutionUtil.get_city_sections(filename)
 
     @staticmethod
     def sanitize_data(response, lat, lng):

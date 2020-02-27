@@ -9,7 +9,7 @@ from rest_framework import status
 class BikeMongoTest(SimpleTestCase):
 
     def test_insertion_api(self):
-        data = open('./test_data_bike.json', 'r')
+        data = open('./static/data/json/test_data_bike.json', 'r')
         request_json = data.read()
         valid_token = TestUtils().get_valid_auth()
         headers = {"Authorization": valid_token}
