@@ -74,6 +74,27 @@ class CheckAuthentication(APIView):
             }
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
+class TrafficAnalysisDetails(APIView):
+    
+    permission_classes = [AuthenticatedOnly]
+
+    def post(self, request, format=None):
+        data = request.data['data']
+        if data is None:
+            return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
+        data = json.loads(data)
+        try:
+            x = TrafficDataInteractions().insert_traffic_analysis_data(data)
+        except Exception as e:
+            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+        return Response(str(x), status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        response = TrafficDataInteractions().get_latest_analysis_data_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+
 
 class TrafficDetails(APIView):
 

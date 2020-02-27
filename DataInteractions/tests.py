@@ -38,6 +38,15 @@ class TestTrafficDataInteractions(SimpleTestCase):
         t_test = traffic_mongo_test.TrafficMongoTest()
         t_test.test_insertion_api()
 
+class TestTrafficAnalysisDataInteractions(SimpleTestCase):
+    def test_retrieval_by_lat_long(self):
+        t_test = traffic_mongo_test.TrafficMongoTest()
+        t_test.test__analysis_retrieval_by_lat_long_function()
+
+    def test_insert_traffic_data(self):
+        t_test = traffic_mongo_test.TrafficMongoTest()
+        t_test.test_insertion_api_analysis()
+
 class TestBusStopDataInteractions(SimpleTestCase):
     def test_retrieval_by_lat_long(self):
         bs_test = busstop_mongo_test.BusStopMongoTest()
