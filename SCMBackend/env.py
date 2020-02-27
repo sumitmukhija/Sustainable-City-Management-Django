@@ -54,6 +54,19 @@ class Environ():
     def get_base_irish_rail_stop_url(self):
         return self.get_var_with_key('BASE_MONGO_IRISH_RAIL_STOP_URL')
 
+    """
+        Pusher related vars
+    """
+    def get_pusher_app_id(self):
+        return self.get_var_with_key('PUSHER_APP_ID')
+
+    def get_pusher_key(self):
+        return self.get_var_with_key('PUSHER_APP_KEY')
+    
+    def get_pusher_secret(self):
+        return self.get_var_with_key('PUSHER_APP_SECRET')
+
+
     def get_var_with_key(self, key):
         if os.getenv(key) is None:
             raise ValueError(str(key) + ' not found')
