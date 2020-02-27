@@ -138,6 +138,9 @@ class LuasStopDetails(APIView):
         return Response(response, status=responseStatus)
 
 class IrishRailStopDetails(APIView):
+    
+    permission_classes = [AuthenticatedOnly, DartAuth]
+
     def post(self, request, format=None):
         data = request.data['data']
         if data is None:
