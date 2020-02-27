@@ -20,7 +20,8 @@ class PollutionTest(SimpleTestCase):
         self.assertEqual(json_response, status.HTTP_400_BAD_REQUEST)
 
         # No lat. Should return None
-        json_response = pu.PollutionUtil.get_geo_pollution_data(None, -6.1136)
+        json_response = pu.PollutionUtil.get_geo_pollution_data(
+            None, -6.1136)
         self.assertEqual(json_response, status.HTTP_400_BAD_REQUEST)
         
         # Check for data keyjson_response = pu.get_geo_pollution_data(53.2329, -6.1136)
@@ -36,3 +37,6 @@ class PollutionTest(SimpleTestCase):
         raw_json = json.loads(raw_json_str)
         is_schema_uniform = match.are_keys_same_in_dictionary(dict(raw_json), dict(json_response))
         self.assertTrue(is_schema_uniform[0], "Schema mismatch")
+
+        contents = pu.PollutionUtil.get_city_sections()
+        self.assertIsNotNone(contents)

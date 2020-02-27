@@ -49,12 +49,15 @@ class TrafficUtil():
         return (EAST_MOST - WEST_MOST)/number_of_sections
 
     @staticmethod
-    def get_city_sections(number_of_sections=10):
-        sections = list()
-        for x in np.linspace(SOUTH_MOST, NORTH_MOST, number_of_sections):
-            for y in np.linspace(WEST_MOST, EAST_MOST, number_of_sections):
-                sections.append((x, y))
-        return sections
+    def get_city_sections(filename="CityClusters.csv"):
+        try:
+            contents = pd.read_csv("./"+filename, encoding="ISO-8859-1")
+            if contents is None:
+                raise Exception(filename, "either empty or cannot be read.")
+            sections = [tuple(x) for x in contents.values]
+            return sections
+        except FileNotFoundError:
+            print(filename, "not found")
 
     @staticmethod
     def sanitize_data(response, lat, lng):
