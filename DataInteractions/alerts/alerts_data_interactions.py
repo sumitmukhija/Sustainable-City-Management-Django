@@ -2,6 +2,7 @@ import pymongo
 from DataInteractions.db_connection import mongo, app
 from bson.json_util import dumps
 import json
+from bson import ObjectId
 
 
 class AlertsDataInteractions():
@@ -37,5 +38,16 @@ class AlertsDataInteractions():
 
     def insert_alerts(self, data):
         with app.app_context():
-            alert_details = mongo.db.Alerts
+            alert_details = mongo.db.Alerts 
             return alert_details.insert(data)
+
+    def update_alert(self, data):
+        with app.app_context():
+            alert_details = mongo.db.Alerts
+            query = { "_id" : ObjectId(""+data["_id"]["$oid"]+"")}
+            newValues = {
+                "$set" : {
+                    "status" : "forwarded"
+                }
+            }
+            return alert_details.update_one(query, newValues, False)

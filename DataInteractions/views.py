@@ -175,14 +175,14 @@ class FlagDetails(APIView):
 
 class AlertList(APIView):
     def post(self, request, format=None):
-        data = request.data['data']
-        if data is None:
+        data = request.data
+        if request is None:
             return Response("No Data", status=status.HTTP_400_BAD_REQUEST)
-        data = json.loads(data)
+        # data = json.loads(data)
         try:
-            x = AlertsDataInteractions().insert_alerts(data)
+            x = AlertsDataInteractions().update_alert(data)
         except Exception as e:
-            return Response(str(x), status=status.HTTP_400_BAD_REQUEST)
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
         return Response(str(x), status=status.HTTP_201_CREATED)
 
     def get(self, request):
