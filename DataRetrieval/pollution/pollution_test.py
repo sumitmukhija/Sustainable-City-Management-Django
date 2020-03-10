@@ -36,3 +36,6 @@ class PollutionTest(SimpleTestCase):
         raw_json = json.loads(raw_json_str)
         is_schema_uniform = match.are_keys_same_in_dictionary(dict(raw_json), dict(json_response))
         self.assertTrue(is_schema_uniform[0], "Schema mismatch")
+
+        contents = pu.PollutionUtil.get_city_sections()
+        self.assertIsNotNone(contents)

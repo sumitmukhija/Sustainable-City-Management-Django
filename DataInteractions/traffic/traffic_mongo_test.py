@@ -10,7 +10,7 @@ headers = {"Authorization": valid_token}
 
 class TrafficMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        data = open('./test_data_traffic.json', 'r')
+        data = open('./static/data/json/test_data_traffic.json', 'r')
         request_json = data.read()
         response = requests.post(url=Environ().get_base_traffic_url(), data={"data": request_json}, headers=headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

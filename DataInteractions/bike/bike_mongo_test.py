@@ -11,7 +11,7 @@ headers = {"Authorization": valid_token}
 class BikeMongoTest(SimpleTestCase):
 
     def test_insertion_api(self):
-        data = open('./test_data_bike.json', 'r')
+        data = open('./static/data/json/test_data_bike.json', 'r')
         request_json = data.read()
         response = requests.post(url=Environ().get_base_bike_url(), data={"data": request_json}, headers=headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

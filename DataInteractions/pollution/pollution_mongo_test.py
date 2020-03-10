@@ -10,7 +10,7 @@ headers = {"Authorization": valid_token}
 
 class PollutionMongoTest(SimpleTestCase):
     def test_insertion_api(self):
-        data = open('./test_data_poll.json', 'r')
+        data = open('./static/data/json/test_data_poll.json', 'r')
         request_json = data.read()
         response = requests.post(url=Environ().get_base_pollution_url(), data={"data": request_json}, headers=headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.status_code)
