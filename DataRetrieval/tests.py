@@ -5,6 +5,7 @@ from .traffic import traffic_test
 from .busstops import busstop_test
 from .luasstops import luasstop_test
 from .irishrail import irishrailstop_test
+from SCMBackend.notifications import Notifier
 
 class SCMRetrievalTests(SimpleTestCase):
     
@@ -31,3 +32,8 @@ class SCMRetrievalTests(SimpleTestCase):
     def test_irishrailstops(self):
         ir_test = irishrailstop_test.IrishRailStopTest()
         ir_test.test()
+    
+    def test_pusher_notifications(self):
+        notifier = Notifier()
+        notifier.dispatch_notification("test notification")
+        # Should show a notification on the frontend application with text test-notification
