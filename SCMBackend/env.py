@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
+from SCMBackend.singleton import singleton
 
+@singleton
 class Environ():
 
     def __init__(self):
