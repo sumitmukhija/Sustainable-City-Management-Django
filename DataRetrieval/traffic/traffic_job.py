@@ -12,12 +12,11 @@ class TrafficJob(cron_job.CronJob):
         headers = {"Authorization": TestUtils().get_valid_auth()}
         url_stops = Environ().get_base_traffic_url()
         url_traffic_analysis = url_stops + "/analysis"
-        responses = []
         timestamp = datetime.datetime.now()
-        sections = traffic_util.TrafficUtil().get_city_sections()
         signals = traffic_util.TrafficUtil().get_signal_coordinates()
         for s in range(signals.shape[0]):
             response = traffic_util.TrafficUtil.get_traffic_data(signals.iloc[s,0], signals.iloc[s,1])
+            response["timestamp"] = timestamp
             response_for_analysis = response
             if (response is None):
                 continue
