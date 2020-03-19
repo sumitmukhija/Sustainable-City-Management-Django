@@ -21,6 +21,7 @@ class Visualisation:
                 new_file["DATETIME"] = file[6:16] + " " + new_file["DATETIME"]
                 new_file["DATETIME"] = pd.to_datetime(new_file["DATETIME"], format='%Y-%m-%d %H:%M:%S')
                 bikes = pd.concat([bikes, new_file])
+        bikes.sort_values(by=["DATETIME"], inplace=True)
         bikes.to_csv(write_file_path, index=False)
 
 
