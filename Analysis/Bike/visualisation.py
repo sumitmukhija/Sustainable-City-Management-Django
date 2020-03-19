@@ -3,6 +3,26 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+def exponential_smoothing(series, alpha):
+    result = [series[0]]  # first value is same as series
+    for n in range(1, len(series)):
+        result.append(alpha * series[n] + (1 - alpha) * result[n - 1])
+    return result
+
+
+def plot_exponential_smoothing(series, alphas):
+    plt.figure(figsize=(17, 8))
+    for alpha in alphas:
+        plt.plot(exponential_smoothing(series, alpha), label="Alpha {}".format(alpha))
+    plt.plot(series.values, "c", label="Actual")
+    plt.legend(loc="best")
+    plt.axis('tight')
+    plt.title("Exponential Smoothing")
+    plt.grid(True)
+    # plt.savefig('fig.png')
+    plt.show()
+
+
 class Visualisation:
     @staticmethod
     def combine_files(folder_path, write_file_path):
@@ -24,7 +44,6 @@ class Visualisation:
         bikes.sort_values(by=["DATETIME"], inplace=True)
         bikes.to_csv(write_file_path, index=False)
 
-
     @staticmethod
     def visualise_time_series(data, x, y):
         """
@@ -34,17 +53,19 @@ class Visualisation:
         :param y: field on y-axis
         :return: view graph
         """
-        series = data.loc[0:1000, [x, y]]
+        # series = data.loc[0:1000, [x, y]]
+        series = data.loc[5000:10000, [x, y]]
         series.plot()
         plt.show()
 
 
 if __name__ == '__main__':
-    folder_path = '/Users/Dhruv/Downloads/bikeData2'
-    write_file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData2.csv'
-    Visualisation().combine_files(folder_path, write_file_path)
+    # folder_path = '/Users/Dhruv/Downloads/bikeData2'
+    # write_file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData2.csv'
+    # Visualisation().combine_files(folder_path, write_file_path)
     # file_path = '/Users/Dhruv/Downloads/bikes_2017-01-24.csv'
-    # file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData.csv'
-    # data = pd.read_csv(file_path)
+    file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData.csv'
+    data = pd.read_csv(file_path)
     # Visualisation().visualise_time_series(data, 'GRAND_CANAL_DOCK', 'DATETIME')
     # Visualisation().visualise_time_series(data, 'HIGH_STREET', 'DATETIME')
+    plot_exponential_smoothing(data.GRAND_CANAL_DOCK[:2000], [0.05, 0.3])
