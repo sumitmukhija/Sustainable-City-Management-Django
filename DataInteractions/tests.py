@@ -73,3 +73,7 @@ class TestIrishRailStopDataInteractions(SimpleTestCase):
     def test_insert_irishrailstop_data(self):
         irs_test = irishrailstop_mongo_test.IrishRailStopMongoTest()
         irs_test.test_insertion_api()
+    
+class TestNotificationDispatch(SimpleTestCase):
+    def test_notification_without_request(self):
+        pass
