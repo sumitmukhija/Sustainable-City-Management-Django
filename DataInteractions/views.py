@@ -197,7 +197,6 @@ class NotificationDispatch(APIView):
             Response -- HTTP response with status code to the client.
         """
         
-
         if request and request.data and request.data['message']:
             content = request.data
             message = content['message']

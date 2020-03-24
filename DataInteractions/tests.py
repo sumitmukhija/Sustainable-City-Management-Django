@@ -5,6 +5,7 @@ from DataInteractions.traffic import traffic_mongo_test
 from DataInteractions.busstops import busstop_mongo_test
 from DataInteractions.luasstops import luasstop_mongo_test
 from DataInteractions.irishrail import irishrailstop_mongo_test
+from DataInteractions.notifications import notifications_test
 
 class TestPollutionTracker (SimpleTestCase):
 
@@ -76,4 +77,9 @@ class TestIrishRailStopDataInteractions(SimpleTestCase):
     
 class TestNotificationDispatch(SimpleTestCase):
     def test_notification_without_request(self):
-        pass
+        not_test = notifications_test.NotificationsTest()
+        # not_test.test_without_message()
+        # not_test.test_with_message()
+        # not_test.test_without_request_data()
+        # not_test.test_without_request()
+        
