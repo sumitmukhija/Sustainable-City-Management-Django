@@ -1,3 +1,4 @@
+statsmodels
 django-kronos==1.0
 numpy==1.17.4
 djangorestframework==3.11.0

@@ -2,6 +2,8 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from Analysis.time_series_utils import TimeSeriesUtils
+
 
 def exponential_smoothing(series, alpha):
     result = [series[0]]  # first value is same as series
@@ -61,11 +63,14 @@ class Visualisation:
 
 if __name__ == '__main__':
     # folder_path = '/Users/Dhruv/Downloads/bikeData2'
-    # write_file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData2.csv'
+    # write_file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData60.csv'
     # Visualisation().combine_files(folder_path, write_file_path)
     # file_path = '/Users/Dhruv/Downloads/bikes_2017-01-24.csv'
-    file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData.csv'
+    file_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/data/csv/BikesHistData30.csv'
     data = pd.read_csv(file_path)
     # Visualisation().visualise_time_series(data, 'GRAND_CANAL_DOCK', 'DATETIME')
     # Visualisation().visualise_time_series(data, 'HIGH_STREET', 'DATETIME')
-    plot_exponential_smoothing(data.GRAND_CANAL_DOCK[:2000], [0.05, 0.3])
+    # plot_exponential_smoothing(data.GRAND_CANAL_DOCK[:2000], [0.05, 0.3])
+    model_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/models/bikes/GRAND_CANAL_DOCK'
+    # TimeSeriesUtils.create_model(data['GRAND_CANAL_DOCK'].values, model_path)
+    pred = TimeSeriesUtils.prediction(model_path, 20)
