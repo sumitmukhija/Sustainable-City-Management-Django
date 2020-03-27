@@ -71,6 +71,7 @@ if __name__ == '__main__':
     # Visualisation().visualise_time_series(data, 'GRAND_CANAL_DOCK', 'DATETIME')
     # Visualisation().visualise_time_series(data, 'HIGH_STREET', 'DATETIME')
     # plot_exponential_smoothing(data.GRAND_CANAL_DOCK[:2000], [0.05, 0.3])
-    model_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/models/bikes/GRAND_CANAL_DOCK'
-    # TimeSeriesUtils.create_model(data['GRAND_CANAL_DOCK'].values, model_path)
+    model_path = '/Users/dhruv/Projects/sustainable-city-management/Sustainable-City-Management-Django/static/models/bikes/CITY_QUAY'
+    # TimeSeriesUtils.create_model(data['CITY_QUAY'].values, model_path)
     pred = TimeSeriesUtils.prediction(model_path, 20)
+    print(pred)

@@ -2,7 +2,6 @@ import numpy as np
 import copy
 import os
 from statsmodels.tsa.ar_model import AR
-from statsmodels.tsa.ar_model import ARResults
 
 
 class TimeSeriesUtils:
@@ -111,16 +110,17 @@ class TimeSeriesUtils:
         TODO: fix/test Code to update model
         update series into the model instead of just one observation
         """
+        # get real observation
         observation = 48
-        data = np.load('ar_data.npy')
-        last_ob = np.load('ar_obs.npy')
         # update and save differenced observation
+        lag = np.load('man_data.npy')
+        last_ob = np.load('man_obs.npy')
         diffed = observation - last_ob[0]
-        data = np.append(data, [diffed], axis=0)
-        np.save('ar_data.npy', data)
+        lag = np.append(lag[1:], [diffed], axis=0)
+        np.save('man_data.npy', lag)
         # update and save real observation
         last_ob[0] = observation
-        np.save('ar_obs.npy', last_ob)
+        np.save('man_obs.npy', last_ob)
 
     @staticmethod
     def prediction(path, n):
