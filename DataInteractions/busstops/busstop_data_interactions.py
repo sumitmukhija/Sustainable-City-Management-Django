@@ -1,4 +1,3 @@
-import pymongo
 from DataInteractions.db_connection import mongo, app
 from bson.json_util import dumps
 import json
