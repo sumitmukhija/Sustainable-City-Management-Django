@@ -23,7 +23,7 @@ def execute_irishrail_job():
     irishrailstop_job.IrishRailJob().exec()
 
 @kronos.register('* * * * *')
-def execute_bikestop_job():
+def execute_busstop_job():
     busstop_job.BusJob().exec()
 
 @kronos.register('* * * * *')

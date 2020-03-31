@@ -10,6 +10,7 @@ from DataInteractions.traffic.traffic_data_interactions import TrafficDataIntera
 from DataInteractions.busstops.busstop_data_interactions import BusStopDataInteractions
 from DataInteractions.luasstops.luasstop_data_interactions import LuasStopDataInteractions
 from DataInteractions.irishrail.irishrailstop_data_interactions import IrishRailStopDataInteractions
+from DataInteractions.timetables.timetables_data_interactions import TimetableDataInteractions
 import json
 from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
@@ -175,5 +176,14 @@ class IrishRailStopDetails(APIView):
 
     def get(self, request):
         response = IrishRailStopDataInteractions().get_latest_by_lat_long()
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+
+class TimetableDetails(APIView):
+    permission_classes = [AuthenticatedOnly, BusAuth]
+    def get(self, request):
+        stopid = request.GET.get('stopid')
+        response = TimetableDataInteractions().get_busstop_timetable(stopid)
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)

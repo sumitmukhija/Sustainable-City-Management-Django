@@ -26,6 +26,9 @@ class Environ():
     def get_dublin_bikes_base_url(self):
         return self.get_var_with_key('DUBLIN_BIKES_URL')
 
+    def get_base_bus_stop_tt_url(self):
+        return self.get_var_with_key("BUS_TT_URL")
+
     '''
             Mongo related environ vars
     '''
@@ -55,6 +58,9 @@ class Environ():
 
     def get_base_irish_rail_stop_url(self):
         return self.get_var_with_key('BASE_MONGO_IRISH_RAIL_STOP_URL')
+
+    def get_base_bus_internal_tt_url(self):
+        return self.get_var_with_key('BASE_INTERNAL_BUS_TT_URL')
 
     """
         Pusher related vars
