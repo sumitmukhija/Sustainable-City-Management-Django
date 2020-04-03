@@ -1,3 +1,9 @@
+"""
+This file is a test file for changing the format of the Bike Data in the CSV
+Also, running the main function creates all the models. 
+This file creates the models on the local machine which we have pushed to the working branch
+This file is not useful while the project is running as model update takes place through bike job
+"""
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
