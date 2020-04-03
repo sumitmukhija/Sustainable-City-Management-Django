@@ -97,10 +97,10 @@ class TimeSeriesUtils:
         TimeSeriesUtils.save_model(X, series, path, window_size)
 
     @staticmethod
-    def update_model(series, path, window_size=WINDOW_SIZE, replace=False):
+    def update_model(actual_observation, stop, window_size=WINDOW_SIZE, replace=False):
         """
         Update model and associated files for this particular series.
-        :param series: new entries in historical data
+        :param actual_observation: new entries in historical data
         :param path: folder path of the model and associated numpy files
         :param window_size: window size in the forecasting model.
         :param replace: if true, the model historical data will be replaced, otherwise appended.
@@ -110,17 +110,29 @@ class TimeSeriesUtils:
         TODO: fix/test Code to update model
         update series into the model instead of just one observation
         """
+        if(stop == "PRINCES STREET / O'CONNELL STREET"):
+            stop = "PRINCES STREET - O'CONNELL STREET"
         # get real observation
-        observation = 48
+        
+        # if(stop == 'AVONDALE ROAD' or stop == 'RATHDOWN ROAD' or stop == "NORTH CIRCULAR ROAD (O'CONNELL'S)" or 
+        # stop == 'WILTON TERRACE (PARK)' or stop == 'MERRION SQUARE SOUTH' or stop == 'BROADSTONE' or
+        # stop == 'GRANGEGORMAN LOWER (CENTRAL)' or stop == 'KILLARNEY STREET' or stop == 'HANOVER QUAY EAST' 
+        # or stop =='GRANGEGORMAN LOWER (NORTH)' or stop == 'GEORGES LANE' or stop =='PHIBSBOROUGH ROAD' or 
+        # stop == 'MOUNTJOY SQUARE EAST' or stop == 'BUCKINGHAM STREET' or stop == 'BUCKINGHAM STREET LOWER' 
+        # or stop == 'CHARLEVILLE ROAD' or stop == 'GRANGEGORMAN LOWER (SOUTH)'):
+        #     return None
+        observation = actual_observation
+        path = './static/models/bikes/' + stop
+        print("actual observation: ", observation)
         # update and save differenced observation
-        lag = np.load('man_data.npy')
-        last_ob = np.load('man_obs.npy')
+        lag = np.load(path + '/man_data.npy')
+        last_ob = np.load(path + '/man_obs.npy')
         diffed = observation - last_ob[0]
         lag = np.append(lag[1:], [diffed], axis=0)
-        np.save('man_data.npy', lag)
-        # update and save real observation
+        np.save(path + '/man_data.npy', lag)
+        # # update and save real observation
         last_ob[0] = observation
-        np.save('man_obs.npy', last_ob)
+        np.save(path + '/man_obs.npy', last_ob)
 
     @staticmethod
     def prediction(path, n):
