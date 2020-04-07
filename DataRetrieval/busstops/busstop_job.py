@@ -6,6 +6,7 @@ import requests
 import json
 import datetime
 
+
 class BusJob(cron_job.CronJob):
 
     def run_job(self):
@@ -14,6 +15,7 @@ class BusJob(cron_job.CronJob):
         timestamp = str(datetime.datetime.now())
         stops = busstop_util.BusStopUtil().get_bus_stop_coordinates()
         if (stops is not None):
+            data = busstop_util.BusStopUtil.format_data(stops)
             for s in range(stops.shape[0]):
                 data = {
                     "StopID": stops.iloc[s, 0],
@@ -23,5 +25,4 @@ class BusJob(cron_job.CronJob):
                     "timestamp": timestamp
                 }
             response = requests.post(url, json={"data": json.dumps(data)}, headers=headers)
-        else:
-            pass
+          
