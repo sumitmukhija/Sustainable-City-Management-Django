@@ -78,8 +78,3 @@ class TestIrishRailStopDataInteractions(SimpleTestCase):
 class TestNotificationDispatch(SimpleTestCase):
     def test_notification_without_request(self):
         not_test = notifications_test.NotificationsTest()
-        # not_test.test_without_message()
-        # not_test.test_with_message()
-        # not_test.test_without_request_data()
-        # not_test.test_without_request()
-        
