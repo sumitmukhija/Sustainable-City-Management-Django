@@ -6,11 +6,10 @@ import requests
 import json
 import datetime
 
-
 class LuasJob(cron_job.CronJob):
 
     def run_job(self):
-        headers = {"Authorization": TestUtils().get_invalid_auth()}
+        headers = {"Authorization": TestUtils().get_valid_auth()}
         timestamp = str(datetime.datetime.now())
         url = Environ().get_base_luas_stop_url()
         stops = luasstop_util.LuasStopUtil().get_luas_stop_coordinates()
@@ -25,4 +24,4 @@ class LuasJob(cron_job.CronJob):
                 }
                 response = requests.post(url, json={"data": json.dumps(data)}, headers=headers)
         else:
-            print("Luas Stop data unavailable")
+            pass
