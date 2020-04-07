@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from DataInteractions.auth import *
+from DataInteractions.timetables.timetables_data_interactions import TimetableDataInteractions
 from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
 from DataInteractions.bike.bike_data_interactions import BikeDataInteractions
 from DataInteractions.traffic.traffic_data_interactions import TrafficDataInteractions
@@ -14,6 +15,7 @@ from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
 from django.core.cache import cache
 from SCMBackend.notifications import Notifier
+
 
 
 class PollDetails(APIView):

@@ -1,5 +1,6 @@
 import requests
 from SCMBackend.env import Environ
+import json
 
 class TimetableDataInteractions():
     def get_busstop_timetable(self, stopid):
