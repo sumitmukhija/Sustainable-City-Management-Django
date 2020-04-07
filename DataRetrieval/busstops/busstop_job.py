@@ -9,7 +9,7 @@ import datetime
 class BusJob(cron_job.CronJob):
 
     def run_job(self):
-        headers = {"Authorization": TestUtils().get_invalid_auth()}
+        headers = {"Authorization": TestUtils().get_valid_auth()}
         url = Environ().get_base_bus_stop_url()
         timestamp = str(datetime.datetime.now())
         stops = busstop_util.BusStopUtil().get_bus_stop_coordinates()
@@ -24,4 +24,4 @@ class BusJob(cron_job.CronJob):
                 }
             response = requests.post(url, json={"data": json.dumps(data)}, headers=headers)
         else:
-            print("Bus Stop data unavailable")
+            pass

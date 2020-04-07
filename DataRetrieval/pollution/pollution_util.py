@@ -71,7 +71,7 @@ class PollutionUtil():
     def get_geo_pollution_data(lat, lng):
         BREEZOMETER_KEY = Environ().get_breezometer_api_key()
         BASE_URL = Environ().get_breezometer_base_url()
-        features = "local_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
+        features = "breezometer_aqi,dominant_pollutant_concentrations,pollutants_concentrations,all_pollutants_concentrations"
         if lat is None or lng is None:
             return status.HTTP_400_BAD_REQUEST
         url = BASE_URL + BREEZOMETER_KEY + \
