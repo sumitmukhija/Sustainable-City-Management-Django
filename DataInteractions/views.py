@@ -218,7 +218,7 @@ class AlertList(APIView):
         response = AlertsDataInteractions().get_alerts()
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
-=======
+
 class TimetableDetails(APIView):
     permission_classes = [AuthenticatedOnly, BusAuth]
     def get(self, request):
