@@ -1,8 +1,6 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-#from flask import Response
-#from flask.wrappers import Response
 from DataInteractions.auth import *
 from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
 from DataInteractions.bike.bike_data_interactions import BikeDataInteractions
@@ -10,6 +8,7 @@ from DataInteractions.traffic.traffic_data_interactions import TrafficDataIntera
 from DataInteractions.busstops.busstop_data_interactions import BusStopDataInteractions
 from DataInteractions.luasstops.luasstop_data_interactions import LuasStopDataInteractions
 from DataInteractions.irishrail.irishrailstop_data_interactions import IrishRailStopDataInteractions
+from DataInteractions.timetables.timetables_data_interactions import TimetableDataInteractions
 import json
 from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
@@ -179,6 +178,13 @@ class IrishRailStopDetails(APIView):
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
 
+class TimetableDetails(APIView):
+    permission_classes = [AuthenticatedOnly, BusAuth]
+    def get(self, request):
+        stopid = request.GET.get('stopid')
+        response = TimetableDataInteractions().get_busstop_timetable(stopid)
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
 
 class NotificationDispatch(APIView):
     """Concerns with sending manual and auto-generated notifications to the client.

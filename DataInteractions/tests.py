@@ -5,6 +5,7 @@ from DataInteractions.traffic import traffic_mongo_test
 from DataInteractions.busstops import busstop_mongo_test
 from DataInteractions.luasstops import luasstop_mongo_test
 from DataInteractions.irishrail import irishrailstop_mongo_test
+from DataInteractions.timetables import timetable_retrieval_test
 from DataInteractions.notifications import notifications_test
 
 class TestPollutionTracker (SimpleTestCase):
@@ -74,6 +75,11 @@ class TestIrishRailStopDataInteractions(SimpleTestCase):
     def test_insert_irishrailstop_data(self):
         irs_test = irishrailstop_mongo_test.IrishRailStopMongoTest()
         irs_test.test_insertion_api()
+
+class TestTimeTableRetrieval(SimpleTestCase):
+    def test_bus_timetable_retrieval(self):
+        bus_tt_test = timetable_retrieval_test.TimetableRetrievalTest()
+        bus_tt_test.test_bus_tt_retrieval()
     
 class TestNotificationDispatch(SimpleTestCase):
     def test_notification_without_request(self):

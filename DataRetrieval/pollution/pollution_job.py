@@ -20,7 +20,9 @@ class PollutionJob(cronJob.CronJob):
             response = pollution_util.PollutionUtil.get_geo_pollution_data(section[0], section[1])
             if (response is None):
                 continue
-            response = pollution_util.PollutionUtil.sanitize_data(response, section[0], section[1])
-            response["timestamp"] = timestamp
-            response = requests.post(url, json={"data": json.dumps(response)}, headers=headers)
- 
+            else:
+                response = pollution_util.PollutionUtil.sanitize_data(response, section[0], section[1])
+                response["timestamp"] = timestamp
+                data.append(response)
+                response = requests.post(url, json={"data": json.dumps(data)}, headers=headers)
+                
