@@ -1,8 +1,6 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-#from flask import Response
-#from flask.wrappers import Response
 from DataInteractions.auth import *
 from DataInteractions.pollution.pollution_data_interactions import PollutionDataInteractions
 from DataInteractions.bike.bike_data_interactions import BikeDataInteractions
@@ -182,7 +180,6 @@ class IrishRailStopDetails(APIView):
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
 
-
 class FlagDetails(APIView):
 
     permission_classes = [AuthenticatedOnly]
@@ -221,3 +218,42 @@ class AlertList(APIView):
         response = AlertsDataInteractions().get_alerts()
         responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
         return Response(response, status=responseStatus)
+=======
+class TimetableDetails(APIView):
+    permission_classes = [AuthenticatedOnly, BusAuth]
+    def get(self, request):
+        stopid = request.GET.get('stopid')
+        response = TimetableDataInteractions().get_busstop_timetable(stopid)
+        responseStatus = status.HTTP_200_OK if response is not None else status.HTTP_404_NOT_FOUND
+        return Response(response, status=responseStatus)
+
+class NotificationDispatch(APIView):
+    """Concerns with sending manual and auto-generated notifications to the client.
+    Can only be accessed by authenticated users of all services.
+    """
+
+    permission_classes = [AuthenticatedOnly]
+
+    def post(self, request):
+        """POST method for the notification. Accessible at {Host}/data/notify
+        
+        Arguments:
+            request Request -- Request from the client. MANDATORY
+        
+        Returns:
+            Response -- HTTP response with status code to the client.
+        """
+        
+        if request and request.data and request.data['message']:
+            content = request.data
+            message = content['message']
+            location = content['location'] or None
+            for_bus = content['busCheckbox'] or False
+            for_dart = content['dartCheckbox'] or False
+            for_bikes = content['bikesCheckbox'] or False
+            for_luas = content['luasCheckbox'] or False
+            is_from_city_manager = content['is_from_city_manager'] or False
+            Notifier().dispatch_notification(message)
+            return Response("Notified!", status=status.HTTP_200_OK)
+        else:
+            return Response("No request or invalid data", status=status.HTTP_400_BAD_REQUEST)

@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'irishrailstop', views.IrishRailStopDetails.as_view()),
     url(r'flags', views.FlagDetails.as_view()),
     url(r'alerts', views.AlertList.as_view())
+    url(r'tt_bus', views.TimetableDetails.as_view()),
+    url(r'notify', views.NotificationDispatch.as_view())
 ]
