@@ -24,5 +24,5 @@ class PollutionJob(cronJob.CronJob):
                 response = pollution_util.PollutionUtil.sanitize_data(response, section[0], section[1])
                 response["timestamp"] = timestamp
                 data.append(response)
-                response = requests.post(url, json={"data": json.dumps(data)}, headers=headers)
+        response = requests.post(url, json={"data": json.dumps(data)}, headers=headers)
                 
