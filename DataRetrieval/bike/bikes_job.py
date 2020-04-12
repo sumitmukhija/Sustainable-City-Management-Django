@@ -17,6 +17,6 @@ class BikeJob(cron_job.CronJob):
         bikes_data = bike_util.BikeUtil.get_dublin_bikes_data()
         response = bike_util.BikeUtil.format_dublin_bikes_data(bikes_data)
         for stop in response:
-            TimeSeriesUtils.update_model(stop['available_bikes'], stop['name'])
+            TimeSeriesUtils.update_model(stop['available_bikes'], stop['name'], 'bikes')
         response = requests.post(url, json={"data": json.dumps(response)}, headers=headers)
 

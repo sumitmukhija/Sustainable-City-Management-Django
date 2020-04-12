@@ -92,15 +92,17 @@ class TimeSeriesUtils:
         :param window_size: window size in the forecasting model.
         :return:
         """
-        os.mkdir(path)
+        if not os.path.exists(path):
+            os.makedirs(path)
         X = TimeSeriesUtils.difference(series)
         TimeSeriesUtils.save_model(X, series, path, window_size)
 
     @staticmethod
-    def update_model(actual_observation, stop, window_size=WINDOW_SIZE, replace=False):
+    def update_model(actual_observation, stop, model_type, window_size=WINDOW_SIZE, replace=False):
         """
         Update model and associated files for this particular series.
         :param actual_observation: new entries in historical data
+        :param stop: the location for which model has to be updated
         :param path: folder path of the model and associated numpy files
         :param window_size: window size in the forecasting model.
         :param replace: if true, the model historical data will be replaced, otherwise appended.
@@ -112,17 +114,9 @@ class TimeSeriesUtils:
         """
         if(stop == "PRINCES STREET / O'CONNELL STREET"):
             stop = "PRINCES STREET - O'CONNELL STREET"
-        # get real observation
         
-        # if(stop == 'AVONDALE ROAD' or stop == 'RATHDOWN ROAD' or stop == "NORTH CIRCULAR ROAD (O'CONNELL'S)" or 
-        # stop == 'WILTON TERRACE (PARK)' or stop == 'MERRION SQUARE SOUTH' or stop == 'BROADSTONE' or
-        # stop == 'GRANGEGORMAN LOWER (CENTRAL)' or stop == 'KILLARNEY STREET' or stop == 'HANOVER QUAY EAST' 
-        # or stop =='GRANGEGORMAN LOWER (NORTH)' or stop == 'GEORGES LANE' or stop =='PHIBSBOROUGH ROAD' or 
-        # stop == 'MOUNTJOY SQUARE EAST' or stop == 'BUCKINGHAM STREET' or stop == 'BUCKINGHAM STREET LOWER' 
-        # or stop == 'CHARLEVILLE ROAD' or stop == 'GRANGEGORMAN LOWER (SOUTH)'):
-        #     return None
         observation = actual_observation
-        path = './static/models/bikes/' + stop
+        path = './static/models/' + model_type + '/' + stop
         print("actual observation: ", observation)
         # update and save differenced observation
         lag = np.load(path + '/man_data.npy')
@@ -130,7 +124,7 @@ class TimeSeriesUtils:
         diffed = observation - last_ob[0]
         lag = np.append(lag[1:], [diffed], axis=0)
         np.save(path + '/man_data.npy', lag)
-        # # update and save real observation
+        # update and save real observation
         last_ob[0] = observation
         np.save(path + '/man_obs.npy', last_ob)
 

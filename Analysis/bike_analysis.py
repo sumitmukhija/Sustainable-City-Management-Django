@@ -29,7 +29,7 @@ def plot_exponential_smoothing(series, alphas):
     plt.show()
 
 
-class Visualisation:
+class BikeAnalysis:
     @staticmethod
     def combine_files(folder_path, write_file_path):
         """
