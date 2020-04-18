@@ -43,6 +43,9 @@ class Environ():
     
     def get_base_pollution_url(self):
         return self.get_var_with_key('BASE_MONGO_POLLUTION_URL')
+    
+    def get_base_pollution_analysis_url(self):
+        return self.get_var_with_key('BASE_MONGO_POLLUTION_ANALYSIS_URL')
 
     def get_base_bike_url(self):
         return self.get_var_with_key('BASE_MONGO_BIKE_URL')

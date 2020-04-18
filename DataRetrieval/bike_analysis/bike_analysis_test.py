@@ -4,13 +4,13 @@ from django.test import SimpleTestCase
 class BikeAnalysisTest(SimpleTestCase):
 
     def test(self):
-        self.test_api_key_present()
-        self.test_get_api_data()
+        self.test_prediction_no_stop()
+        self.test_prediction_with_stop()
 
-    def test_api_key_present(self):
-        apiKey = BikeAnalysisUtil().getAPIKey()
-        self.assertIsNotNone(apiKey)
+    def test_prediction_no_stop(self):
+        response = BikeAnalysisUtil().get_predictions("")
+        self.assertIsNone(response)
 
-    def test_get_api_data(self):
-        json_response = BikeAnalysisUtil().get_dublin_bikes_data()
+    def test_prediction_with_stop(self):
+        json_response = BikeAnalysisUtil().get_predictions("FENIAN STREET")
         self.assertIsNotNone(json_response)

@@ -6,6 +6,7 @@ import requests
 import json
 from SCMBackend.env import Environ
 from DataInteractions.test_utils import TestUtils
+from Analysis.time_series_utils import TimeSeriesUtils
 
 class PollutionJob(cronJob.CronJob):
 
@@ -21,6 +22,10 @@ class PollutionJob(cronJob.CronJob):
             if (response is None):
                 continue
             else:
+                lat = section[0]
+                lng = section[1]
+                location = "{} {}".format(lat, lng)
+                TimeSeriesUtils.update_model(response['data']['indexes']['baqi']['aqi'], location, 'pollution')
                 response = pollution_util.PollutionUtil.sanitize_data(response, section[0], section[1])
                 response["timestamp"] = timestamp
                 data.append(response)
