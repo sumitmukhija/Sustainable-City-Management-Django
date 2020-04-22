@@ -2,8 +2,10 @@ import os
 import requests
 import numpy as np
 import pandas as pd
+from DataRetrieval.pollution.pollution_util import PollutionUtil
 from rest_framework import status
 from dotenv import load_dotenv
+from datetime import datetime
 
 
 load_dotenv()
@@ -20,7 +22,7 @@ class TrafficUtil():
 
     @staticmethod
     def get_signal_coordinates():
-        signals = pd.read_excel("./DublinSignalData.xlsx", index_col=0)
+        signals = pd.read_excel("./static/data/xlsx/DublinSignalData.xlsx", index_col=0)
         return signals
 
     @staticmethod
@@ -49,12 +51,8 @@ class TrafficUtil():
         return (EAST_MOST - WEST_MOST)/number_of_sections
 
     @staticmethod
-    def get_city_sections(number_of_sections=10):
-        sections = list()
-        for x in np.linspace(SOUTH_MOST, NORTH_MOST, number_of_sections):
-            for y in np.linspace(WEST_MOST, EAST_MOST, number_of_sections):
-                sections.append((x, y))
-        return sections
+    def get_city_sections(filename="CityClusters.csv"):
+        return PollutionUtil.get_city_sections(filename)
 
     @staticmethod
     def sanitize_data(response, lat, lng):
@@ -87,5 +85,40 @@ class TrafficUtil():
                 "confidence" : response["flowSegmentData"]["confidence"],
                 "roadClosure" : response["flowSegmentData"]["roadClosure"],
                 "coordinates" : response["flowSegmentData"]["coordinates"]
+            }
+        return data
+
+
+    @staticmethod
+    def sanitize_data_for_analysis(response, lat, lng):
+    # modifies the breezometer response to be saved in the db
+        if (response is None):
+            #TODO: show error
+            print("Response is None for :: " + str((lat,lng)))
+            return None
+        elif('httpStatusCode' in response and response['httpStatusCode'] == status.HTTP_400_BAD_REQUEST):
+            return None
+        else:
+            curSpeed = response["flowSegmentData"]["currentSpeed"]
+            freeSpeed = response["flowSegmentData"]["freeFlowSpeed"]
+
+            if curSpeed/freeSpeed <= 0.6:
+                if curSpeed / freeSpeed <= 0.2:
+                    color = "#ff0000x"
+                else:
+                    color = "#FFBF00"
+            else:
+                color = "#00b300"
+            data = {
+                "timestamp" : str(datetime.now()),
+                "lat" : lat,
+                "long" : lng,
+                "color" : color,
+                "currentSpeed" : response["flowSegmentData"]["currentSpeed"],
+                "freeFlowSpeed" : response["flowSegmentData"]["freeFlowSpeed"],
+                "currentTravelTime" : response["flowSegmentData"]["currentTravelTime"],
+                "freeFlowTravelTime" : response["flowSegmentData"]["freeFlowTravelTime"],
+                "confidence" : response["flowSegmentData"]["confidence"],
+                "roadClosure" : response["flowSegmentData"]["roadClosure"],
             }
         return data
