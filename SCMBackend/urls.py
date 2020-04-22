@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from DataInteractions import views
+from DataRetrieval import views
 from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mongo_auth/', include('mongo_auth.urls')),
-    url(r'^data/', include('DataInteractions.urls'))
+    url(r'^data/', include('DataInteractions.urls')),
+    url(r'^analysis', include('DataRetrieval.urls'))
 ]
