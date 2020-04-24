@@ -35,15 +35,18 @@ class BikeDataInteractions():
                 temp = json.loads(dumps(bike_details.find(
                     query).sort("_id", pymongo.DESCENDING).limit(1)))
                 if temp[0]['available_bikes'] == 16:
+                    message = "Bike availability low."
                     # cache.set("isAlertPresent", True, timeout=None)
                     notifier = Notifier()
                     notifier.dispatch_notification(
-                        "test notification", "to-admin")
+                        message, "to-admin")
                     newDict = {}
                     newDict['lat'] = temp[0]['lat']
                     newDict['long'] = temp[0]['long']
                     newDict['type'] = 'bike'
                     newDict['status'] = 'New'
+                    newDict['message'] = message
+                    newDict['priority'] = "low"
                     newDict['timestamp'] = str(datetime.datetime.now())
                     AlertsDataInteractions().insert_alerts(newDict)
                 latest_db_records.append(temp[0])

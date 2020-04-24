@@ -15,7 +15,7 @@ from mongo_auth.permissions import AuthenticatedOnly
 from mongo_auth.utils import login_status
 from django.core.cache import cache
 from SCMBackend.notifications import Notifier
-
+import datetime
 
 
 class PollDetails(APIView):
@@ -211,7 +211,7 @@ class AlertList(APIView):
             x = AlertsDataInteractions().update_alert(data)
             notifier = Notifier()
             notifier.dispatch_notification(
-                "test notification 1", "to-service-provider")
+                data["message"], "to-service-provider")
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
         return Response(str(x), status=status.HTTP_201_CREATED)
@@ -249,13 +249,31 @@ class NotificationDispatch(APIView):
         if request and request.data and request.data['message']:
             content = request.data
             message = content['message']
+            priority = content['priority']
             location = content['location'] or None
             for_bus = content['busCheckbox'] or False
             for_dart = content['dartCheckbox'] or False
             for_bikes = content['bikesCheckbox'] or False
             for_luas = content['luasCheckbox'] or False
             is_from_city_manager = content['is_from_city_manager'] or False
-            Notifier().dispatch_notification(message)
+            newDict = {}
+            newDict['lat'] = content['location'].split(",")[0]
+            newDict['long'] = content['location'].split(",")[1]
+            newDict['status'] = 'New'
+            newDict['message'] = message
+            newDict['priority'] = priority
+            newDict['timestamp'] = str(datetime.datetime.now())
+            newDict['type'] = ""
+            if for_bus:
+                newDict['type'] = 'bus,'
+            if for_dart:
+                newDict['type'] = newDict['type']+'dart,'
+            if for_bikes:
+                newDict['type'] = newDict['type']+'bike,'
+            if for_luas:
+                newDict['type'] = newDict['type']+'luas,'
+            AlertsDataInteractions().insert_alerts(newDict)
+            Notifier().dispatch_notification(message, )
             return Response("Notified!", status=status.HTTP_200_OK)
         else:
             return Response("No request or invalid data", status=status.HTTP_400_BAD_REQUEST)
