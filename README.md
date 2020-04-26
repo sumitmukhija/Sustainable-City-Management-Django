@@ -15,7 +15,7 @@ Project initially set up on a
 python -m pip install Django==2.2.6
 1. Clone the repository using terminal/command-prompt
     
-    'git clone https://sumitmukhijaa@bitbucket.org/cs7cs3/scm-backend.git'
+    'git clone https://github.com/sumitmukhija/Sustainable-City-Management-Django.git'
 
 2. Move to the directory with 'manage.py'
 3. Run anaconda prompt as admin
@@ -29,12 +29,6 @@ python -m pip install Django==2.2.6
     'python3 manage.py runserver'
 
 6. The default port is 8000. Open browser and go to localhost:8000
-7. A JSON response like below should be seen.
-   
-    '{
-        "message": "It's working!", 
-        "time": "2019-11-07T13:12:46.906"
-    }'
 
 
 ### Cron
