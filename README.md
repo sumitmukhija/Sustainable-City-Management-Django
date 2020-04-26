@@ -12,24 +12,37 @@ Project initially set up on a
 
 ### Steps to setup
 
-
+python -m pip install Django==2.2.6
 1. Clone the repository using terminal/command-prompt
     
-    `git clone https://sumitmukhijaa@bitbucket.org/cs7cs3/scm-backend.git`
+    'git clone https://sumitmukhijaa@bitbucket.org/cs7cs3/scm-backend.git'
 
-2. Move to the directory with `manage.py`
-3. To run server 
+2. Move to the directory with 'manage.py'
+3. Run anaconda prompt as admin
+4. Run 'pip install -r requirements.txt' to install dependencies
+5. To run server 
 
-    `python manage.py runserver`
+    'python manage.py runserver'
 
     For Mac, 
     
-    `python3 manage.py runserver`
+    'python3 manage.py runserver'
 
-4. The default port is 8000. Open browser and go to localhost:8000
-5. A JSON response like below should be seen.
+6. The default port is 8000. Open browser and go to localhost:8000
+7. A JSON response like below should be seen.
    
-    `{
+    '{
         "message": "It's working!", 
         "time": "2019-11-07T13:12:46.906"
-    }`
+    }'
+
+
+### Cron
+
+* Initiate cron
+
+`python3 manage.py runtask execute_pollution_job`
+
+* List of tasks registered in Kronos
+
+`python3 manage.py showtasks`
